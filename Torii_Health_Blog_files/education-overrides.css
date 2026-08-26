@@ -1,0 +1,381 @@
+/* ============================================================
+   Torii Health — education.html overrides / supplement
+   Loaded AFTER site.css / static.css / custom.css. Two jobs:
+
+   1) VISIBILITY FALLBACK (the fix for "titles disappeared"):
+      site.css defines:
+        .blog-item { opacity:0; transform:translatey(-15px); ... }
+        .blog-item.is-loaded { opacity:1; transform:translatey(0); }
+      ".is-loaded" is normally added by Squarespace's own runtime JS once
+      each card's image has loaded. That JS isn't part of this export, so
+      every .blog-item — and everything inside it, including the title —
+      stayed permanently invisible. The markup now adds "is-loaded"
+      directly, and the rule below is a second, defensive fallback: even
+      if a JS bundle is added later and something about it doesn't fire
+      correctly, cards will never silently disappear again.
+
+   2) Fills the one real structural gap: the blog listing GRID layout,
+      normally served by Squarespace's separate
+      "squarespace-blog-collection-list" bundle (not part of the files
+      provided), plus sizing/rounding for the per-article cover images
+      added under education/<slug>/images/cover.svg.
+   ============================================================ */
+
+   :root {
+    --torii-primary: #1470af;      /* darkAccent, read from site.css */
+    --torii-accent: #8eb6dc;       /* accent, read from site.css */
+    --torii-bg-soft: #eaeaee;      /* lightAccent, read from site.css */
+    --torii-heading-font: Clarkson, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --torii-body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  /* ---- 1) Visibility fallback ---- */
+  .blog-side-by-side-wrapper .blog-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* site.css also hides every <img> until it carries a "loaded" class:
+       img { opacity: 0; ... }
+       img:not(.loaded) { opacity: 0; }
+     Squarespace's own runtime JS normally adds ".loaded" once an image
+     finishes loading. That JS isn't part of this export, so on top of
+     adding class="loaded" directly in the markup, this is a second,
+     defensive layer: any <img> on this page will always be visible,
+     even if a future JS bundle re-adds the animation and something
+     about it doesn't fire correctly. */
+  img {
+    opacity: 1 !important;
+  }
+  
+  /* ---------------- Social icon bar (custom element) ---------------- */
+  
+  #torii-icon-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 0;
+    background: var(--torii-bg-soft);
+  }
+  
+  #torii-icon-bar img {
+    width: 28px;
+    height: 28px;
+    display: block;
+    opacity: 0.85;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  
+  #torii-icon-bar a:hover img {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+  
+  /* ---------------- Blog listing grid + cover images ---------------- */
+  
+  .blog-side-by-side-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  
+  .blog-item {
+    background: #fff;
+    border: 1px solid var(--torii-bg-soft);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  
+  .blog-item:hover {
+    box-shadow: 0 10px 30px rgba(20, 112, 175, 0.10);
+    transform: translateY(-2px);
+  }
+  
+  /* Whole-card link: wraps the image + text so the entire card is
+     clickable, not just the image or the title. Only one real <a> per
+     card (nesting <a> inside <a> isn't valid HTML), so the former
+     image-link, title-link, and "Read More" link have been merged into
+     this single anchor; "Read More" is now a decorative span. */
+  .blog-item-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px;
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .blog-item .blog-image-wrapper {
+    margin-bottom: 14px !important;
+    width: 100% !important;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--torii-bg-soft);
+  }
+  
+  .blog-item .blog-image-wrapper img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center;
+    background: var(--torii-bg-soft);
+  }
+  
+  .blog-item .blog-meta-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 13px;
+    color: #6b6b6b;
+    margin-bottom: 10px;
+    font-family: var(--torii-body-font);
+  }
+  
+  .blog-item .blog-author::after {
+    content: "·";
+    margin-left: 10px;
+    color: var(--torii-bg-soft);
+  }
+  
+  .blog-item .blog-title {
+    font-family: var(--torii-heading-font);
+    font-size: 19px;
+    line-height: 1.35;
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  
+  .blog-item .blog-title a:hover,
+  .blog-item-link:hover .blog-title {
+    color: var(--torii-primary);
+  }
+  
+  .blog-item .blog-excerpt {
+    font-family: var(--torii-body-font);
+    font-size: 14.5px;
+    color: #6b6b6b;
+    margin-bottom: 16px;
+    flex: 1 1 auto;
+  }
+  
+  .blog-item .blog-excerpt p { margin: 0; }
+  
+  .blog-item .blog-more-link {
+    align-self: flex-start;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--torii-primary);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  }
+  
+  .blog-item-link:hover .blog-more-link {
+    border-bottom-color: var(--torii-primary);
+  }
+  
+  @media (max-width: 767px) {
+    .blog-side-by-side-wrapper { grid-template-columns: 1fr; }
+  }
+  
+  /* ============================================================
+     Restored header/footer structure styling
+     (site.css/static.css supply Squarespace's generic .header-* /
+     .btn / .sqs-button-element--primary rules, but several are gated
+     behind runtime JS state or per-site "current-styles" data that
+     isn't present in this static export. The rules below make the
+     restored dropdown nav, burger menu, and 3-column footer render
+     and behave correctly on their own.)
+     ============================================================ */
+  
+  .header { position: sticky; top: 0; z-index: 50; background: #fff; }
+  
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 4vw; position: relative; }
+  
+  .header-title-nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .header-title-logo img { display: block; max-height: 48px; width: auto; }
+  
+  .header-nav { flex: 1 1 auto; }
+  
+  .header-nav-list { display: flex; gap: 26px; align-items: center; list-style: none; margin: 0; padding: 0; }
+  
+  .header-nav-item--folder { position: relative; }
+  
+  .header-nav-folder-title {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--torii-primary, #1470af);
+    padding: 6px 0;
+  }
+  
+  .header-nav-item--active .header-nav-folder-title,
+  .header-nav-item--collection > a,
+  .header-nav-item--external > a {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1e1e1e;
+    padding: 6px 0;
+  }
+  
+  .header-nav-item--active .header-nav-folder-title { color: var(--torii-primary, #1470af); }
+  
+  .header-nav-folder-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: #fff;
+    border: 1px solid var(--torii-bg-soft, #eaeaee);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    z-index: 20;
+  }
+  
+  .header-nav-item--folder:hover .header-nav-folder-content,
+  .header-nav-item--folder:focus-within .header-nav-folder-content {
+    display: block;
+  }
+  
+  .header-nav-folder-item a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1e1e1e;
+  }
+  
+  .header-nav-folder-item a:hover { background: var(--torii-bg-soft, #eaeaee); }
+  
+  .header-actions .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: var(--torii-primary, #1470af);
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--torii-primary, #1470af);
+  }
+  
+  .header-actions .btn:hover { background: #0f5688; }
+  
+  /* Burger: hidden on desktop, shown on mobile */
+  .header-burger { display: none; }
+  
+  .header-burger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .burger-box { width: 26px; height: 18px; position: relative; }
+  .top-bun, .patty, .bottom-bun {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #1e1e1e;
+  }
+  .top-bun { top: 0; }
+  .patty { top: 8px; }
+  .bottom-bun { top: 16px; }
+  
+  .header-menu {
+    border-top: 1px solid var(--torii-bg-soft, #eaeaee);
+    background: #fff;
+    padding: 12px 4vw 20px;
+  }
+  
+  .header-menu-nav-item a {
+    display: block;
+    padding: 12px 0;
+    font-size: 16px;
+    border-bottom: 1px solid var(--torii-bg-soft, #eaeaee);
+  }
+  
+  .header-menu-cta { margin-top: 16px; }
+  .header-menu-cta .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: var(--torii-primary, #1470af);
+    color: #fff !important;
+    font-weight: 600;
+  }
+  
+  @media (max-width: 900px) {
+    .header-nav { display: none; }
+    .header-burger { display: block; }
+  }
+  
+  /* ---------------- Footer (3-column: brand / contact / social) ---------------- */
+  
+  footer.sections { background: var(--torii-bg-soft, #eaeaee); margin-top: 40px; }
+  
+  footer .page-section { padding: 48px 0; }
+  
+  .footer-fluid-engine {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr auto;
+    gap: 32px;
+    align-items: start;
+  }
+  
+  .footer-col h2 { font-size: 22px; margin: 0 0 6px; font-family: var(--torii-heading-font); }
+  .footer-col h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b6b6b;
+    margin: 0 0 10px;
+  }
+  .footer-col p { margin: 0 0 6px; font-size: 14.5px; }
+  .footer-col a:hover { color: var(--torii-primary, #1470af); }
+  .footer-tagline { color: #6b6b6b; }
+  .footer-highlight a { text-decoration: underline; text-underline-offset: 3px; }
+  
+  #torii-icon-bar-footer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  #torii-icon-bar-footer img { width: 32px; height: 32px; opacity: 0.85; }
+  #torii-icon-bar-footer a:hover img { opacity: 1; }
+  
+  @media (max-width: 767px) {
+    .footer-fluid-engine { grid-template-columns: 1fr; gap: 28px; }
+    #torii-icon-bar-footer { gap: 20px; }
+  }
+  
+  /* ============================================================
+     CLICK-THROUGH FIX (not a card style change):
+     site.css has conflicting [hidden] rules (some force display:block,
+     others display:none) plus .header-menu { position:fixed; inset:0;
+     pointer-events:auto } for the restored mobile nav overlay. Depending
+     on cascade order, the "hidden" mobile menu can end up as an invisible
+     full-viewport layer that still intercepts clicks — including clicks
+     on the blog cards underneath. This rule guarantees the overlay is
+     both invisible AND non-interactive whenever it carries the "hidden"
+     attribute, regardless of what the rest of the stylesheet does.
+     ============================================================ */
+  #torii-mobile-menu[hidden] {
+    display: none !important;
+    pointer-events: none !important;
+  }
