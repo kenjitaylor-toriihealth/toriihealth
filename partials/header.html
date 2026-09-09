@@ -1,0 +1,160 @@
+<!--
+  partials/header.html
+  共通ヘッダー。各ページの <div id="site-header"></div> に
+  assets/js/include-partials.js が fetch して挿入します。
+  ナビ項目・URLは元サイトの構成に合わせています。必要に応じて書き換えてください。
+-->
+<div class="th-icon-bar" aria-label="Contact links">
+  <a href="https://www.facebook.com/ToriiHealth" target="_blank" rel="noopener" title="Facebook">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="28" height="28" loading="lazy">
+  </a>
+  <a href="https://wa.me/817090937870" target="_blank" rel="noopener" title="WhatsApp">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" width="28" height="28" loading="lazy">
+  </a>
+  <a href="mailto:info@toriihealth.org" title="Email">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" width="28" height="28" loading="lazy">
+  </a>
+  <a href="tel:+817091607242" title="Call us">
+    <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone" width="28" height="28" loading="lazy">
+  </a>
+</div>
+
+<header class="th-header">
+  <div class="th-container th-header__bar">
+    <a class="th-header__logo" href="https://www.toriihealth.org/" aria-label="Torii Health — Home">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/677a320d6428433f62b4aecf/8bd7fa10-23d5-4f88-aeec-ece9faa0e3cd/Screenshot+2025-10-13+at+11.01.08%E2%80%AFAM.png?format=300w"
+        alt="Torii Health"
+        width="160" height="52"
+      >
+    </a>
+
+    <nav class="th-header__nav" aria-label="Primary">
+      <ul class="th-header__nav-list">
+        <li class="th-nav-item th-nav-item--folder">
+          <button type="button" aria-expanded="false" data-th-dropdown>
+            Services
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
+          </button>
+          <div class="th-nav-dropdown">
+            <a href="https://www.toriihealth.org/primary-specialty-medicine">Primary and Specialty Services</a>
+            <a href="https://www.toriihealth.org/veteran-consultation">Veteran Consultation</a>
+          </div>
+        </li>
+        <li class="th-nav-item th-nav-item--folder">
+          <button type="button" aria-expanded="false" data-th-dropdown>
+            About
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
+          </button>
+          <div class="th-nav-dropdown">
+            <a href="https://www.toriihealth.org/our-story">Our Story</a>
+            <a href="https://www.toriihealth.org/team">Our Team</a>
+          </div>
+        </li>
+        <li class="th-nav-item th-nav-item--folder">
+          <button type="button" aria-expanded="false" data-th-dropdown>
+            Resources
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
+          </button>
+          <div class="th-nav-dropdown">
+            <a href="https://www.toriihealth.org/faq">FAQ</a>
+            <a href="https://www.toriihealth.org/education" aria-current="page">Education</a>
+          </div>
+        </li>
+        <li class="th-nav-item">
+          <a href="https://www.toriihealth.org/contact">Work With Us</a>
+        </li>
+        <li class="th-nav-item">
+          <a href="https://toriihealth.intakeq.dev/portal" target="_blank" rel="noopener">Patient Portal</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="th-header__actions">
+      <a class="th-btn th-btn--outline" href="https://www.toriihealth.org/appointments">Book now</a>
+      <button type="button" class="th-header__burger" aria-label="Open menu" aria-expanded="false" data-th-burger>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="th-header__mobile-panel" data-th-mobile-panel>
+    <div class="th-container">
+      <ul class="th-header__nav-list">
+        <li class="th-nav-item th-nav-item--folder">
+          <button type="button" aria-expanded="false" data-th-dropdown>
+            Services
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
+          </button>
+          <div class="th-nav-dropdown">
+            <a href="https://www.toriihealth.org/primary-specialty-medicine">Primary and Specialty Services</a>
+            <a href="https://www.toriihealth.org/veteran-consultation">Veteran Consultation</a>
+          </div>
+        </li>
+        <li class="th-nav-item th-nav-item--folder">
+          <button type="button" aria-expanded="false" data-th-dropdown>
+            About
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
+          </button>
+          <div class="th-nav-dropdown">
+            <a href="https://www.toriihealth.org/our-story">Our Story</a>
+            <a href="https://www.toriihealth.org/team">Our Team</a>
+          </div>
+        </li>
+        <li class="th-nav-item th-nav-item--folder">
+          <button type="button" aria-expanded="false" data-th-dropdown>
+            Resources
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
+          </button>
+          <div class="th-nav-dropdown">
+            <a href="https://www.toriihealth.org/faq">FAQ</a>
+            <a href="https://www.toriihealth.org/education" aria-current="page">Education</a>
+          </div>
+        </li>
+        <li class="th-nav-item"><a href="https://www.toriihealth.org/contact">Work With Us</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.intakeq.dev/portal" target="_blank" rel="noopener">Patient Portal</a></li>
+      </ul>
+      <div class="th-header__actions">
+        <a class="th-btn th-btn--primary" href="https://www.toriihealth.org/appointments">Book now</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // ヘッダーの開閉インタラクション(fetch挿入後に実行される想定)
+  (function initToriiHeader() {
+    var header = document.querySelector('.th-header');
+    if (!header || header.dataset.thInit) return;
+    header.dataset.thInit = 'true';
+
+    // ドロップダウン(Services / About / Resources)
+    header.querySelectorAll('[data-th-dropdown]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        header.querySelectorAll('[data-th-dropdown]').forEach(function (b) {
+          b.setAttribute('aria-expanded', 'false');
+        });
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
+    });
+
+    // モバイルメニュー
+    var burger = header.querySelector('[data-th-burger]');
+    var panel = header.querySelector('[data-th-mobile-panel]');
+    if (burger && panel) {
+      burger.addEventListener('click', function () {
+        var open = panel.classList.toggle('is-open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!header.contains(e.target)) {
+        header.querySelectorAll('[data-th-dropdown]').forEach(function (b) {
+          b.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+  })();
+</script>
