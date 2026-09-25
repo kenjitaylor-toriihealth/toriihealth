@@ -280,7 +280,13 @@
    .th-footer {
      background: var(--th-navy);
      color: #cdd8ec;
-     margin-top: 64px;
+     /* margin-top はあえて付けない: フッター前に来るセクション(記事本文の
+        白背景、Feedbackの薄紺、Booking CTAの濃紺など)は、それぞれが
+        必要な余白(padding)をすでに持っている。ここで margin を足すと、
+        直前が濃色セクションの場合に「濃色→白い隙間→濃色」という
+        不自然な帯が挟まってしまうため、フッターは常に直前の要素へ
+        隙間なく密着させる。記事本文(白背景)の直後に来るページ構成の
+        場合でも、記事側の padding-bottom で十分な余白が確保される。 */
    }
    
    .th-footer__top {
