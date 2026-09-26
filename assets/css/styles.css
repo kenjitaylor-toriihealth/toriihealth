@@ -42,7 +42,8 @@
    :where(.th-header, .th-footer) a { color: inherit; }
 
    /* partial が fetch で挿入されるまでの高さを確保し、レイアウトのガタつき(CLS)を抑える */
-   #site-header:empty { min-height: 127px; }
+   #site-header:empty { min-height: 131px; }
+   @media (max-width: 959px) { #site-header:empty { min-height: 114px; } }
 
    .th-container {
      width: 100%;
@@ -137,41 +138,49 @@
      border-bottom: 3px solid var(--th-red);
    }
    
+   /* ヘッダー/フッターの横幅と左右余白
+      本文(1160px)より少し広い 1280px を使い、ロゴ・ナビ・Book now の間に余裕を持たせる */
+   .th-header, .th-footer { --th-gutter: 32px; }
+   @media (max-width: 959px) { .th-header, .th-footer { --th-gutter: 20px; } }
+   .th-header .th-container,
+   .th-footer .th-container {
+     max-width: calc(1280px + var(--th-gutter) * 2);
+     padding-left: var(--th-gutter);
+     padding-right: var(--th-gutter);
+   }
+
    .th-header__bar {
      display: flex;
      align-items: center;
      justify-content: space-between;
-     gap: 24px;
-     /* 左右の余白は .th-container に任せる(padding: 14px 0 だと左右0で上書きされていた) */
-     padding-top: 14px;
-     padding-bottom: 14px;
+     gap: 32px;
+     padding-top: 16px;
+     padding-bottom: 16px;
    }
-   
-   .th-header__logo { flex-shrink: 1; min-width: 0; }
-   .th-header__logo img {
-     height: 52px;
-     width: auto;
-     max-width: 100%;
+
+   /* ロゴ: 横長(Torii Health | Part of Iris Dental Medical)。縦横比は常に維持する */
+   .th-header__logo { flex: 0 0 auto; display: block; line-height: 0; }
+   .th-header__logo img { height: 52px; width: auto; }
+
+   /* PC幅が狭いとき: ロゴを少し小さくし、ナビの間隔を詰める */
+   @media (min-width: 960px) and (max-width: 1119px) {
+     .th-header__logo img { height: 42px; }
+     .th-header__bar { gap: 24px; }
+     .th-header__nav .th-header__nav-list { gap: 22px; }
    }
-   /* 横長ロゴ(Torii Health | Part of Iris Dental Medical)のため、
-      画面幅に応じて高さを下げ、ナビ・Book now と重ならないようにする */
-   @media (max-width: 1180px) { .th-header__logo img { height: 42px; } }
-   @media (min-width: 960px) and (max-width: 1080px) {
-     .th-header__logo img { height: 34px; }
-     .th-header__bar { gap: 16px; }
+   @media (min-width: 960px) and (max-width: 1023px) {
+     .th-header__logo img { height: 36px; }
      .th-header__nav .th-header__nav-list { gap: 18px; }
    }
-   @media (max-width: 959px)  {
-     .th-header__logo img { height: 36px; }
-     .th-header__bar, .th-header__bar .th-header__actions { gap: 12px; }
+
+   /* スマホ/タブレット: ロゴは画面幅に合わせて伸縮(最大42px高)、Book now は小さめ */
+   @media (max-width: 959px) {
+     .th-header__bar { gap: 14px; padding-top: 12px; padding-bottom: 12px; }
+     .th-header__bar .th-header__actions { gap: 14px; }
+     .th-header__logo img { height: auto; width: min(265px, calc(100vw - 210px)); }
+     .th-header__bar .th-btn { padding: 10px 18px; font-size: 0.8rem; }
    }
-   @media (max-width: 420px)  {
-     .th-header__logo img { height: 30px; }
-     .th-header__bar .th-btn { padding: 10px 16px; }
-   }
-   @media (max-width: 379px)  { .th-header__logo img { height: 26px; } }
-   @media (max-width: 340px)  { .th-header__logo img { height: 22px; } }
-   
+
    .th-header__nav {
      display: none;
    }
