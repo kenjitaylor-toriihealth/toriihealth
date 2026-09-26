@@ -48,6 +48,8 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 │   ├── js/include-partials.js             # partials を fetch して挿入するローダー
 │   └── js/analytics.js                    # ★GA4（全ページ共通、<head> で読み込む）
 ├── Images/Shared/                         # 共通画像（ロゴ、アイコン、記事カバー）
+│   ├── ToriiHealth_IrisDental_Logo_header.png  # ★ヘッダーロゴ（Torii Health | Part of Iris Dental Medical）
+│   └── ToriiHealth_IrisDental_Logo_full.png    # タグライン入りの全体版（透過）
 └── *_files/, Torii_Health_*_files/        # Squarespace 保存時の付属ファイル（CSS/JS/画像）
 ```
 
@@ -167,3 +169,4 @@ python3 -m http.server 8080
 
 - 2026-09-26：共通ヘッダー/フッターを全ページに適用。Squarespace のヘッダー/フッターと、コードインジェクションで入っていた重複アイコンバーを削除。ロゴを新ロゴ（`Images/Shared/ToriiHealth_Logo_header.png`）に変更、アイコンをローカル化。`base.css` を分離。
 - 2026-09-26：GA4 を `assets/js/analytics.js` に共通化し全ページに導入（新ページは未計測だった／旧ページは Squarespace の保存済み gtag.js を置換）。予約・電話・WhatsApp・メールのクリックをイベント計測。フッターの WhatsApp 表記をリンク先番号に統一。PCの `Book now` を赤の塗りボタンに変更。
+- 2026-09-27：ヘッダーロゴを「Torii Health | Part of Iris Dental Medical」の横長ロゴに変更（画面幅に応じて高さを調整）。ヘッダー/フッターの左右余白が 0 になっていた不具合を修正。
