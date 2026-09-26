@@ -1,6 +1,7 @@
 /* ==========================================================================
    Torii Health — Shared base styles (tokens, header, footer, buttons)
-   Used by every page. Article-specific styles live in article.css.
+   Used by every page (including legacy Squarespace pages).
+   Global resets for new pages live in base.css; article styles in article.css.
    ========================================================================== */
 
    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
@@ -27,23 +28,23 @@
      --th-radius-sm: 6px;
    }
    
-   *, *::before, *::after { box-sizing: border-box; }
-   
-   html { scroll-behavior: smooth; }
-   
-   body {
-     margin: 0;
-     font-family: var(--th-font-body);
-     color: var(--th-text);
-     background: var(--th-white);
-     line-height: 1.65;
-     -webkit-font-smoothing: antialiased;
-   }
-   
-   img { max-width: 100%; display: block; }
-   
-   a { color: inherit; }
-   
+   /* ヘッダー/フッター内だけに効くリセット。
+      body・img・a などのグローバルなリセットは base.css に分離した。
+      (Squarespace由来の旧ページにも styles.css を読み込むため、
+       ページ本文の見た目を変えないようにスコープしている) */
+   #site-header, #site-footer,
+   .th-icon-bar, .th-header, .th-footer { font-family: var(--th-font-body); line-height: 1.65; }
+   .th-icon-bar *, .th-icon-bar *::before, .th-icon-bar *::after,
+   .th-header *, .th-header *::before, .th-header *::after,
+   .th-footer *, .th-footer *::before, .th-footer *::after { box-sizing: border-box; }
+   /* :where() で詳細度を0にして、.th-btn--primary などのクラス指定が必ず勝つようにする */
+   :where(.th-header, .th-footer, .th-icon-bar) img { max-width: 100%; display: block; }
+   :where(.th-header, .th-footer) a { color: inherit; }
+
+   /* partial が fetch で挿入されるまでの高さを確保し、レイアウトのガタつき(CLS)を抑える */
+   #site-header:empty { min-height: 131px; }
+   @media (max-width: 959px) { #site-header:empty { min-height: 114px; } }
+
    .th-container {
      width: 100%;
      max-width: var(--th-max-width);
@@ -65,14 +66,13 @@
      border: 0;
    }
    
-   :focus-visible {
+   .th-header :focus-visible, .th-footer :focus-visible, .th-icon-bar :focus-visible {
      outline: 3px solid var(--th-red);
      outline-offset: 2px;
    }
-   
-   @media (prefers-reduced-motion: reduce) {
-     * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-   }
+
+   /* 現在ページのナビ項目 (aria-current は header.html のスクリプトが自動で付与) */
+   .th-header__nav-list a[aria-current="page"] { color: var(--th-red); }
    
    /* --------------------------------------------------------------------------
       Buttons
@@ -88,6 +88,7 @@
      text-decoration: none;
      border: 1.5px solid transparent;
      cursor: pointer;
+     white-space: nowrap;
      transition: transform 120ms ease, background-color 150ms ease, color 150ms ease;
    }
    .th-btn:hover { transform: translateY(-1px); }
@@ -137,19 +138,49 @@
      border-bottom: 3px solid var(--th-red);
    }
    
+   /* ヘッダー/フッターの横幅と左右余白
+      本文(1160px)より少し広い 1280px を使い、ロゴ・ナビ・Book now の間に余裕を持たせる */
+   .th-header, .th-footer { --th-gutter: 32px; }
+   @media (max-width: 959px) { .th-header, .th-footer { --th-gutter: 20px; } }
+   .th-header .th-container,
+   .th-footer .th-container {
+     max-width: calc(1280px + var(--th-gutter) * 2);
+     padding-left: var(--th-gutter);
+     padding-right: var(--th-gutter);
+   }
+
    .th-header__bar {
      display: flex;
      align-items: center;
      justify-content: space-between;
-     gap: 24px;
-     padding: 14px 0;
+     gap: 32px;
+     padding-top: 16px;
+     padding-bottom: 16px;
    }
-   
-   .th-header__logo img {
-     height: 52px;
-     width: auto;
+
+   /* ロゴ: 横長(Torii Health | Part of Iris Dental Medical)。縦横比は常に維持する */
+   .th-header__logo { flex: 0 0 auto; display: block; line-height: 0; }
+   .th-header__logo img { height: 52px; width: auto; }
+
+   /* PC幅が狭いとき: ロゴを少し小さくし、ナビの間隔を詰める */
+   @media (min-width: 960px) and (max-width: 1119px) {
+     .th-header__logo img { height: 42px; }
+     .th-header__bar { gap: 24px; }
+     .th-header__nav .th-header__nav-list { gap: 22px; }
    }
-   
+   @media (min-width: 960px) and (max-width: 1023px) {
+     .th-header__logo img { height: 36px; }
+     .th-header__nav .th-header__nav-list { gap: 18px; }
+   }
+
+   /* スマホ/タブレット: ロゴは画面幅に合わせて伸縮(最大42px高)、Book now は小さめ */
+   @media (max-width: 959px) {
+     .th-header__bar { gap: 14px; padding-top: 12px; padding-bottom: 12px; }
+     .th-header__bar .th-header__actions { gap: 14px; }
+     .th-header__logo img { height: auto; width: min(265px, calc(100vw - 210px)); }
+     .th-header__bar .th-btn { padding: 10px 18px; font-size: 0.8rem; }
+   }
+
    .th-header__nav {
      display: none;
    }
@@ -250,6 +281,7 @@
      padding: 8px 0 16px;
    }
    .th-header__mobile-panel .th-nav-item { width: 100%; }
+   .th-header__mobile-panel .th-nav-item > a { display: block; }
    .th-header__mobile-panel .th-nav-item > a,
    .th-header__mobile-panel .th-nav-item--folder > button {
      width: 100%;
@@ -290,7 +322,8 @@
    }
    
    .th-footer__top {
-     padding: 48px 0 32px;
+     padding-top: 48px;
+     padding-bottom: 32px;
      display: grid;
      gap: 32px;
      grid-template-columns: 1fr;
@@ -327,7 +360,8 @@
    .th-footer__social {
      display: flex;
      gap: 16px;
-     padding: 18px 0;
+     padding-top: 18px;
+     padding-bottom: 18px;
      border-top: 1px solid rgba(255,255,255,0.14);
    }
    .th-footer__social img,
@@ -337,7 +371,8 @@
    
    .th-footer__bottom {
      border-top: 1px solid rgba(255,255,255,0.14);
-     padding: 16px 0;
+     padding-top: 16px;
+     padding-bottom: 16px;
      display: flex;
      flex-wrap: wrap;
      justify-content: space-between;
