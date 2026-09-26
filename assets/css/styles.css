@@ -1,6 +1,7 @@
 /* ==========================================================================
    Torii Health — Shared base styles (tokens, header, footer, buttons)
-   Used by every page. Article-specific styles live in article.css.
+   Used by every page (including legacy Squarespace pages).
+   Global resets for new pages live in base.css; article styles in article.css.
    ========================================================================== */
 
    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
@@ -27,23 +28,22 @@
      --th-radius-sm: 6px;
    }
    
-   *, *::before, *::after { box-sizing: border-box; }
-   
-   html { scroll-behavior: smooth; }
-   
-   body {
-     margin: 0;
-     font-family: var(--th-font-body);
-     color: var(--th-text);
-     background: var(--th-white);
-     line-height: 1.65;
-     -webkit-font-smoothing: antialiased;
-   }
-   
-   img { max-width: 100%; display: block; }
-   
-   a { color: inherit; }
-   
+   /* ヘッダー/フッター内だけに効くリセット。
+      body・img・a などのグローバルなリセットは base.css に分離した。
+      (Squarespace由来の旧ページにも styles.css を読み込むため、
+       ページ本文の見た目を変えないようにスコープしている) */
+   #site-header, #site-footer,
+   .th-icon-bar, .th-header, .th-footer { font-family: var(--th-font-body); line-height: 1.65; }
+   .th-icon-bar *, .th-icon-bar *::before, .th-icon-bar *::after,
+   .th-header *, .th-header *::before, .th-header *::after,
+   .th-footer *, .th-footer *::before, .th-footer *::after { box-sizing: border-box; }
+   /* :where() で詳細度を0にして、.th-btn--primary などのクラス指定が必ず勝つようにする */
+   :where(.th-header, .th-footer, .th-icon-bar) img { max-width: 100%; display: block; }
+   :where(.th-header, .th-footer) a { color: inherit; }
+
+   /* partial が fetch で挿入されるまでの高さを確保し、レイアウトのガタつき(CLS)を抑える */
+   #site-header:empty { min-height: 127px; }
+
    .th-container {
      width: 100%;
      max-width: var(--th-max-width);
@@ -65,14 +65,13 @@
      border: 0;
    }
    
-   :focus-visible {
+   .th-header :focus-visible, .th-footer :focus-visible, .th-icon-bar :focus-visible {
      outline: 3px solid var(--th-red);
      outline-offset: 2px;
    }
-   
-   @media (prefers-reduced-motion: reduce) {
-     * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-   }
+
+   /* 現在ページのナビ項目 (aria-current は header.html のスクリプトが自動で付与) */
+   .th-header__nav-list a[aria-current="page"] { color: var(--th-red); }
    
    /* --------------------------------------------------------------------------
       Buttons
@@ -250,6 +249,7 @@
      padding: 8px 0 16px;
    }
    .th-header__mobile-panel .th-nav-item { width: 100%; }
+   .th-header__mobile-panel .th-nav-item > a { display: block; }
    .th-header__mobile-panel .th-nav-item > a,
    .th-header__mobile-panel .th-nav-item--folder > button {
      width: 100%;

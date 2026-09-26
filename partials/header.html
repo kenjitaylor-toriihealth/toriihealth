@@ -2,31 +2,29 @@
   partials/header.html
   共通ヘッダー。各ページの <div id="site-header"></div> に
   assets/js/include-partials.js が fetch して挿入します。
-  <div id="site-header" data-src="../partials/header.html"></div>
+  ルート直下のページ: <div id="site-header" data-src="./partials/header.html"></div>
+  education/ 配下:   <div id="site-header" data-src="../partials/header.html"></div>
+  ※ partial 内の画像は /Images/... のルート相対パス(ローカル確認はリポジトリ直下でサーバー起動)
 -->
 <div class="th-icon-bar" aria-label="Contact links">
   <a href="https://www.facebook.com/ToriiHealth" target="_blank" rel="noopener" title="Facebook">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="28" height="28" loading="lazy">
+    <img src="/Images/Shared/icons/facebook.png" alt="Facebook" width="28" height="28">
   </a>
   <a href="https://wa.me/817090937870" target="_blank" rel="noopener" title="WhatsApp">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" width="28" height="28" loading="lazy">
+    <img src="/Images/Shared/icons/whatsapp.png" alt="WhatsApp" width="28" height="28">
   </a>
   <a href="mailto:info@toriihealth.org" title="Email">
-    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" width="28" height="28" loading="lazy">
+    <img src="/Images/Shared/icons/email.png" alt="Email" width="28" height="28">
   </a>
   <a href="tel:+817091607242" title="Call us">
-    <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Phone" width="28" height="28" loading="lazy">
+    <img src="/Images/Shared/icons/phone.png" alt="Phone" width="28" height="28">
   </a>
 </div>
 
 <header class="th-header">
   <div class="th-container th-header__bar">
     <a class="th-header__logo" href="https://www.toriihealth.org/" aria-label="Torii Health — Home">
-      <img
-        src="https://images.squarespace-cdn.com/content/v1/677a320d6428433f62b4aecf/8bd7fa10-23d5-4f88-aeec-ece9faa0e3cd/Screenshot+2025-10-13+at+11.01.08%E2%80%AFAM.png?format=300w"
-        alt="Torii Health"
-        width="160" height="52"
-      >
+      <img src="/Images/Shared/ToriiHealth_Logo_header.png" alt="Torii Health" width="165" height="52">
     </a>
 
     <nav class="th-header__nav" aria-label="Primary">
@@ -58,7 +56,7 @@
           </button>
           <div class="th-nav-dropdown">
             <a href="https://www.toriihealth.org/faq">FAQ</a>
-            <a href="https://www.toriihealth.org/education" aria-current="page">Education</a>
+            <a href="https://www.toriihealth.org/education">Education</a>
           </div>
         </li>
         <li class="th-nav-item">
@@ -71,7 +69,7 @@
     </nav>
 
     <div class="th-header__actions">
-      <a class="th-btn th-btn--outline" href="https://www.toriihealth.org/appointments">Book now</a>
+      <a class="th-btn th-btn--primary" href="https://www.toriihealth.org/appointments">Book now</a>
       <button type="button" class="th-header__burger" aria-label="Open menu" aria-expanded="false" data-th-burger>
         <span></span><span></span><span></span>
       </button>
@@ -108,7 +106,7 @@
           </button>
           <div class="th-nav-dropdown">
             <a href="https://www.toriihealth.org/faq">FAQ</a>
-            <a href="https://www.toriihealth.org/education" aria-current="page">Education</a>
+            <a href="https://www.toriihealth.org/education">Education</a>
           </div>
         </li>
         <li class="th-nav-item"><a href="https://www.toriihealth.org/contact">Work With Us</a></li>
@@ -148,6 +146,17 @@
         burger.setAttribute('aria-expanded', String(open));
       });
     }
+
+    // 現在ページのナビ項目に aria-current="page" を付与
+    // (/faq, /faq.html, /faq.htm, /faq/ をすべて同じページとみなす)
+    function normalize(path) {
+      return path.replace(/\/index\.html?$/, '/').replace(/\.html?$/, '').replace(/\/+$/, '') || '/';
+    }
+    var here = normalize(location.pathname);
+    header.querySelectorAll('.th-header__nav-list a[href]').forEach(function (a) {
+      if (a.hostname !== 'www.toriihealth.org' && a.hostname !== location.hostname) return;
+      if (normalize(a.pathname) === here) a.setAttribute('aria-current', 'page');
+    });
 
     document.addEventListener('click', function (e) {
       if (!header.contains(e.target)) {
