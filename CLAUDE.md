@@ -23,6 +23,7 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 | リポジトリ | GitHub `kenjitaylor-toriihealth/toriihealth`（`main` が本番想定） |
 | 作業フロー | 機能ごとにブランチ → PR → `main` にマージ |
 | ビルド | なし（静的HTMLをそのまま配信） |
+| 正規ドメイン | **`https://toriihealth.org`（apex）**。`www.toriihealth.org` は Netlify で apex に 301。canonical・og:url・内部リンクは apex で書く |
 | 外部サービス | IntakeQ（予約・患者ポータル）、Kit（メルマガ）、Google Analytics 4 `G-5Z8ZSDQ5JD`（全ページ、`assets/js/analytics.js`） |
 
 - Netlify 側のビルド設定・公開ディレクトリ・リダイレクトはリポジトリ内に無い（`netlify.toml` / `_redirects` 未コミット）。Netlify 管理画面で設定されている可能性あり。
@@ -95,6 +96,7 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 - ヘッダー・フッターの修正は **`partials/header.html` / `partials/footer.html` を1か所直すだけ**で全ページに反映される。
 - partial 内の画像パスは `/Images/...` の**ルート相対**（ページの階層に関係なく動くため）。
 - 現在ページのナビ項目には header.html 内のスクリプトが自動で `aria-current="page"` を付ける（手書きしない）。
+- `include-partials.js` が読み込むのは **`#site-header[data-src]` と `#site-footer[data-src]` だけ**。旧ページには Squarespace の遅延読み込み画像 `<img data-src="...">` が大量にあるため、対象セレクタを `[data-src]` に広げない（2026-09-30 の障害の原因）。HTML 以外のレスポンスも挿入しない。
 - `styles.css` の header/footer 用リセットは `.th-header` / `.th-footer` 内にスコープ済み。旧ページの本文には影響しない。
 - `base.css`（body/img/a のグローバルリセット）は**新方式ページだけ**に読み込む。旧ページに入れると本文の見た目が崩れる。
 - CSS の読み込み順（新方式ページ）：`base.css` → `styles.css` → `article.css`
@@ -158,12 +160,14 @@ python3 -m http.server 8080
 
 1. 医師名の表記ゆれ：team は "Masashiro Yao"、appointments は "Masahiro Yao"。
 2. 重複・意味のないURL：`service.html`／`vetconsultation.htm`（veteran-consultation と重複）、`welcome-to-2026-the-year-of-the-horse-pf5nl-*`・`zml3xkaeodzi8oxn1o92yr0udg09do`・`blog-post-title-one-fb2j5`（中身と無関係なスラッグ）→ SEO的に不利。301リダイレクト付きで整理。
-3. faq.html の title が「FAQs 2 — Torii Health」。
 4. Squarespace CDN の画像が残存（契約終了で消えるリスク）。
 5. 旧ページは Squarespace の JS/CSS が大量で重い → 新方式への置き換えでパフォーマンス改善。
 6. ヘッダー/フッターは JS で後から挿入しているため、SEO・表示速度的には不利。将来的に Netlify のビルド時インクルード等で静的HTMLに埋め込むのが理想。
 7. /contact が採用ページで、患者向け問い合わせ導線が弱い。
-8. `education/GLP1_Supplements.html` の canonical が `/education/glp1s-and-muscle-loss-the-supplements-worth-considering` になっており、ファイル名（URL）と一致しない。リダイレクトが無ければ要修正。
+8. 旧ページのコンソールエラー（Best Practices で減点）：Squarespace のコンポーネントJSがローカル保存版と CDN 版で二重読み込み（`... is already defined`）、`/scripts/*.js`・`/api/census/RecordHit` の 404。新方式への置き換えで解消する。
+9. 新方式記事3本（skin-check / four-simple-habits / GLP1_Supplements）の `og:image` が存在しない `/images/education/*.jpg` を指している（SNSでシェアしたとき画像が出ない）。
+10. Kit のスライドインフォーム（保存済みHTML）が本文に重なって表示される（PageSpeed のスクリーンショットでも確認）。
+11. Netlify は URL を小文字に正規化する（例 `/education/GLP1_Supplements` → `/education/glp1_supplements`）。canonical は小文字の最終URLで書く。
 
 ## 9. 変更履歴（主なもの）
 
@@ -171,3 +175,4 @@ python3 -m http.server 8080
 - 2026-09-26：GA4 を `assets/js/analytics.js` に共通化し全ページに導入（新ページは未計測だった／旧ページは Squarespace の保存済み gtag.js を置換）。予約・電話・WhatsApp・メールのクリックをイベント計測。フッターの WhatsApp 表記をリンク先番号に統一。PCの `Book now` を赤の塗りボタンに変更。
 - 2026-09-27：ヘッダーロゴを「Torii Health | Part of Iris Dental Medical」の横長ロゴに変更（画面幅に応じて高さを調整）。ヘッダー/フッターの左右余白が 0 になっていた不具合を修正。
 - 2026-09-27：新ロゴでヘッダーが窮屈になっていたため、ヘッダー/フッターの幅を 1280px＋左右余白 32px（スマホ 20px）に広げ、ロゴ・ナビ・Book now の間隔を調整。スマホはロゴを画面幅に合わせて伸縮。
+- 2026-09-30：PageSpeed の SEO / Best Practices が「!」（計測エラー）になっていた問題を修正。原因は `include-partials.js` が `[data-src]` を持つ Squarespace 画像まで fetch し、画像バイナリを `<img>` 内に HTML として挿入していたこと（本番で DOM が 304 階層になり Lighthouse の `DOM.getDocument` が `CBOR: stack limit exceeded` で失敗）。対象をヘッダー/フッターに限定。あわせて canonical・og:url・内部リンクを www から apex に統一、GLP1 記事の canonical（404 のURLを指していた）と壊れた JSON-LD を修正、保存されていた reCAPTCHA のスナップショット（iframe・古い api.js）を全ページから削除、`robots.txt`・`sitemap.xml` を追加、FAQ の title「FAQs 2」を修正、meta description が空だった12ページに追加。
