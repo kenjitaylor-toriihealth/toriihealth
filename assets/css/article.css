@@ -200,3 +200,78 @@
 @media (max-width: 600px) {
   .th-signoff { flex-direction: column; align-items: flex-start; text-align: left; }
 }
+
+/* ==========================================================================
+   2026-10-06 追加：レスポンシブ修正 ＋ 出典（Sources）ブロック
+   ========================================================================== */
+
+/* (1) 左右余白の修正
+   .th-article-header / .th-prose の `padding: … 0 …` が .th-container の
+   左右余白を上書きしていたため、スマホ・タブレットで見出しと本文が
+   画面の端に接していた。ヘッダー/フッターと同じ 20px（スマホ）／32px に揃える。
+   本文の読み幅（760px）はPCで従来どおりになるよう max-width に余白分を足す。 */
+.th-article-header.th-container,
+.th-prose.th-container {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.th-prose.th-container { max-width: calc(760px + 40px); }
+
+@media (min-width: 720px) {
+  .th-article-header.th-container,
+  .th-prose.th-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .th-prose.th-container { max-width: calc(760px + 64px); }
+}
+
+/* 長いURL・単語で横スクロールが出ないように */
+.th-prose { overflow-wrap: break-word; }
+
+/* (2) 記事のカバー画像
+   width/height 属性（1200x675）だけだと、スマホで幅だけ縮んで高さ 675px の
+   まま残り、上下に大きな空白ができていた。比率を保って縮小する。 */
+.th-article-header > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 24px 0 8px;
+}
+
+/* (3) 前後の記事リンク
+   PC：左右に並べ、Next は右寄せ／スマホ：縦に積む */
+.th-pagination a { flex: 1 1 0; min-width: 0; }
+.th-pagination a.th-pagination__next { text-align: right; }
+
+@media (max-width: 600px) {
+  .th-pagination { flex-direction: column; gap: 20px; }
+  .th-pagination a.th-pagination__next { text-align: left; }
+}
+
+/* (4) 出典（メルマガの Source / Sources 欄） */
+.th-sources {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--th-border);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--th-text-muted);
+}
+.th-sources h2 {
+  font-family: var(--th-font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--th-text-muted);
+  margin: 0 0 10px;
+}
+.th-sources ol { margin: 0; padding-left: 20px; }
+.th-sources li { margin-bottom: 6px; overflow-wrap: anywhere; }
+.th-sources a { color: inherit; }
+
+/* (5) まとめ枠の下に余分な空白が出ないように */
+.th-bottom-line p:last-child { margin-bottom: 0; }
