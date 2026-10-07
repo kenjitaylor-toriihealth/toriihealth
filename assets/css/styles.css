@@ -222,6 +222,11 @@
      .th-header__logo img { height: 36px; }
      .th-header__nav .th-header__nav-list { gap: 18px; }
    }
+   /* 7 flat nav items (2026-10): tighten text between 960px and 1199px */
+   @media (min-width: 960px) and (max-width: 1199px) {
+     .th-header__nav .th-header__nav-list { gap: 14px; font-size: 0.84rem; }
+     .th-header__bar { gap: 18px; }
+   }
 
    /* スマホ/タブレット: ロゴは画面幅に合わせて伸縮(最大42px高)、Book now は小さめ */
    @media (max-width: 959px) {
@@ -380,7 +385,10 @@
    }
    
    @media (min-width: 720px) {
-     .th-footer__top { grid-template-columns: 1.2fr 1fr 1fr; gap: 24px; }
+     .th-footer__top { grid-template-columns: repeat(3, 1fr); gap: 32px 24px; }
+   }
+   @media (min-width: 1024px) {
+     .th-footer__top { grid-template-columns: 1.6fr 1fr 1fr 1.1fr; gap: 32px; }
    }
    
    .th-footer__brand h2 {
@@ -391,6 +399,12 @@
    }
    
    .th-footer__brand p { margin: 0 0 4px; font-size: 0.92rem; }
+   .th-footer__part { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.01em; color: #a8bedf; white-space: nowrap; }
+   @media (max-width: 1023px) { .th-footer__brand { grid-column: 1 / -1; } }
+   @media (max-width: 719px) {
+     .th-footer__top { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+     .th-footer__contact { grid-column: 1 / -1; }
+   }
    .th-footer__brand a { color: #a8bedf; text-decoration: underline; }
    
    .th-footer__heading {

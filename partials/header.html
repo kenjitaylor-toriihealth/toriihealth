@@ -29,42 +29,13 @@
 
     <nav class="th-header__nav" aria-label="Primary">
       <ul class="th-header__nav-list">
-        <li class="th-nav-item th-nav-item--folder">
-          <button type="button" aria-expanded="false" data-th-dropdown>
-            Services
-            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
-          </button>
-          <div class="th-nav-dropdown">
-            <a href="https://toriihealth.org/primary-specialty-medicine">Primary and Specialty Services</a>
-            <a href="https://toriihealth.org/veteran-consultation">Veteran Consultation</a>
-          </div>
-        </li>
-        <li class="th-nav-item th-nav-item--folder">
-          <button type="button" aria-expanded="false" data-th-dropdown>
-            About
-            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
-          </button>
-          <div class="th-nav-dropdown">
-            <a href="https://toriihealth.org/our-story">Our Story</a>
-            <a href="https://toriihealth.org/team">Our Team</a>
-          </div>
-        </li>
-        <li class="th-nav-item th-nav-item--folder">
-          <button type="button" aria-expanded="false" data-th-dropdown>
-            Resources
-            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
-          </button>
-          <div class="th-nav-dropdown">
-            <a href="https://toriihealth.org/faq">FAQ</a>
-            <a href="https://toriihealth.org/education">Education</a>
-          </div>
-        </li>
-        <li class="th-nav-item">
-          <a href="https://toriihealth.org/contact">Work With Us</a>
-        </li>
-        <li class="th-nav-item">
-          <a href="https://toriihealth.intakeq.dev/portal" target="_blank" rel="noopener">Patient Portal</a>
-        </li>
+        <li class="th-nav-item"><a href="https://toriihealth.org/primary-specialty-medicine">Services</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.org/veteran-consultation">Veteran Care</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.org/our-story">About</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.org/team">Team</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.org/faq">FAQ</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.org/education">Education</a></li>
+        <li class="th-nav-item"><a href="https://toriihealth.intakeq.dev/portal" target="_blank" rel="noopener">Patient Portal</a></li>
       </ul>
     </nav>
 
@@ -78,40 +49,17 @@
 
   <div class="th-header__mobile-panel" data-th-mobile-panel>
     <div class="th-container">
-      <ul class="th-header__nav-list">
-        <li class="th-nav-item th-nav-item--folder">
-          <button type="button" aria-expanded="false" data-th-dropdown>
-            Services
-            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
-          </button>
-          <div class="th-nav-dropdown">
-            <a href="https://toriihealth.org/primary-specialty-medicine">Primary and Specialty Services</a>
-            <a href="https://toriihealth.org/veteran-consultation">Veteran Consultation</a>
-          </div>
-        </li>
-        <li class="th-nav-item th-nav-item--folder">
-          <button type="button" aria-expanded="false" data-th-dropdown>
-            About
-            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
-          </button>
-          <div class="th-nav-dropdown">
-            <a href="https://toriihealth.org/our-story">Our Story</a>
-            <a href="https://toriihealth.org/team">Our Team</a>
-          </div>
-        </li>
-        <li class="th-nav-item th-nav-item--folder">
-          <button type="button" aria-expanded="false" data-th-dropdown>
-            Resources
-            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8l7 7 7-7"/></svg>
-          </button>
-          <div class="th-nav-dropdown">
-            <a href="https://toriihealth.org/faq">FAQ</a>
-            <a href="https://toriihealth.org/education">Education</a>
-          </div>
-        </li>
-        <li class="th-nav-item"><a href="https://toriihealth.org/contact">Work With Us</a></li>
-        <li class="th-nav-item"><a href="https://toriihealth.intakeq.dev/portal" target="_blank" rel="noopener">Patient Portal</a></li>
-      </ul>
+      <nav aria-label="Mobile">
+        <ul class="th-header__nav-list">
+          <li class="th-nav-item"><a href="https://toriihealth.org/primary-specialty-medicine">Services</a></li>
+          <li class="th-nav-item"><a href="https://toriihealth.org/veteran-consultation">Veteran Care</a></li>
+          <li class="th-nav-item"><a href="https://toriihealth.org/our-story">About</a></li>
+          <li class="th-nav-item"><a href="https://toriihealth.org/team">Team</a></li>
+          <li class="th-nav-item"><a href="https://toriihealth.org/faq">FAQ</a></li>
+          <li class="th-nav-item"><a href="https://toriihealth.org/education">Education</a></li>
+          <li class="th-nav-item"><a href="https://toriihealth.intakeq.dev/portal" target="_blank" rel="noopener">Patient Portal</a></li>
+        </ul>
+      </nav>
       <div class="th-header__actions">
         <a class="th-btn th-btn--primary" href="https://toriihealth.org/appointments">Book now</a>
       </div>
@@ -154,7 +102,7 @@
     }
     var here = normalize(location.pathname);
     header.querySelectorAll('.th-header__nav-list a[href]').forEach(function (a) {
-      if (a.hostname !== 'www.toriihealth.org' && a.hostname !== location.hostname) return;
+      if (a.hostname !== 'toriihealth.org' && a.hostname !== 'www.toriihealth.org' && a.hostname !== location.hostname) return;
       if (normalize(a.pathname) === here) a.setAttribute('aria-current', 'page');
     });
 
