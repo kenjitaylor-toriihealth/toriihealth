@@ -46,6 +46,9 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 │   ├── css/base.css                       # 新方式ページ専用のグローバルリセット
 │   ├── css/styles.css                     # ★全ページ共通（トークン・ヘッダー・フッター・ボタン）
 │   ├── css/article.css                    # 記事ページ用
+│   ├── css/site.css                       # ★新方式ページ共通の部品（<main class="th-page">）
+│   ├── css/home.css                       # トップページ(index.html)専用
+│   ├── fonts/                             # 自前ホストのフォント（Manrope / Nunito Sans、styles.css の @font-face）
 │   ├── js/include-partials.js             # partials を fetch して挿入するローダー
 │   └── js/analytics.js                    # ★GA4（全ページ共通、<head> で読み込む）
 ├── Images/Shared/                         # 共通画像（ロゴ、アイコン、記事カバー）
@@ -58,17 +61,17 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 
 | ファイル | 本番URL | 方式 | 備考 |
 |---|---|---|---|
-| index.html | / | 旧 | トップ。ヒーロー・患者の声・Kitフォーム |
-| primary-specialty-medicine.htm | /primary-specialty-medicine | 旧 | サービス（主要） |
-| veteran-consultation.htm | /veteran-consultation | 旧 | 退役軍人向け |
-| vetconsultation.htm | /vetconsultation | 旧 | ↑と重複気味 |
-| service.html | (canonical → /veteran-consultation) | 旧 | 重複ページ |
-| our-story.html | /our-story | 旧 | |
-| team.html | /team | 旧 | 医師別 IntakeQ 予約リンク |
-| appointments.html | /appointments | 旧 | 予約の入口 |
-| faq.html | /faq | 旧 | title が「FAQs 2」 |
+| index.html | / | 新 | トップ。デザインブリーフ（D1）準拠。`assets/css/home.css` |
+| primary-specialty-medicine.htm | /primary-specialty-medicine | 新 | Services（ナビ表記）。ファイル名・URLは維持 |
+| veteran-consultation.htm | /veteran-consultation | 新 | Veteran Care（表記のみ変更、URLは維持） |
+| vetconsultation.htm | → 301 /veteran-consultation | 旧 | `_redirects` で統合（ファイルは残存） |
+| service.html | → 301 /veteran-consultation | 旧 | `_redirects` で統合（ファイルは残存） |
+| our-story.html | /our-story | 新 | About |
+| team.html | /team | 新 | 医師・セラピスト別 IntakeQ 予約リンク。写真は `Images/Team/` |
+| appointments.html | /appointments | 新 | 予約の入口・医師スケジュール |
+| faq.html | /faq | 新 | `<details>` アコーディオン＋FAQPage 構造化データ |
 | contact.html | /contact | 旧 | 中身は採用（Work With Us） |
-| billing.htm | /billing | 旧 | |
+| billing.htm | /billing | 新 | Insurance & Billing |
 | ebinamammogram.htm | /ebinamammogram | 旧 | 海老名総合病院マンモグラフィー（PDFあり） |
 | sleepstudy.htm | /sleepstudy | 旧 | |
 | education.html | /education | 新 | 記事一覧＋クライアント側検索 |
@@ -154,19 +157,19 @@ python3 -m http.server 8080
 
 確認済み・対応不要：
 - Patient Portal のリンク `toriihealth.intakeq.dev/portal` は元のヘッダーと同じなので、このままでよい（2026-09-26 確認）。
-- WhatsApp は `+81 70-9093-7870`（`wa.me/817090937870`）に統一済み。
+- WhatsApp は `+81 70-9093-7870`（`wa.me/817090937870`）に統一済み。※デザインブリーフのフッター案は +81 70-8415-0445（2026-10-07 時点で未確認のため現行番号を維持）。
 
 未対応：
 
-1. 医師名の表記ゆれ：team は "Masashiro Yao"、appointments は "Masahiro Yao"。
-2. 重複・意味のないURL：`service.html`／`vetconsultation.htm`（veteran-consultation と重複）、`welcome-to-2026-the-year-of-the-horse-pf5nl-*`・`zml3xkaeodzi8oxn1o92yr0udg09do`・`blog-post-title-one-fb2j5`（中身と無関係なスラッグ）→ SEO的に不利。301リダイレクト付きで整理。
+1. （解消）医師名の表記：正しくは "Masahiro Yao"（2026-10-07 確認）。team・appointments・写真ファイル名（`Images/Team/masahiro-yao.webp`）を統一済み。デザインブリーフの "Masashiro" は誤記。
+2. 重複・意味のないURL：`service.html`／`vetconsultation.htm` は 2026-10-07 に `_redirects` で 301 済み。残り：`welcome-to-2026-the-year-of-the-horse-pf5nl-*`・`zml3xkaeodzi8oxn1o92yr0udg09do`・`blog-post-title-one-fb2j5`（中身と無関係なスラッグ）→ SEO的に不利。301リダイレクト付きで整理。
 4. Squarespace CDN の画像が残存（契約終了で消えるリスク）。
 5. 旧ページは Squarespace の JS/CSS が大量で重い → 新方式への置き換えでパフォーマンス改善。
 6. ヘッダー/フッターは JS で後から挿入しているため、SEO・表示速度的には不利。将来的に Netlify のビルド時インクルード等で静的HTMLに埋め込むのが理想。
 7. /contact が採用ページで、患者向け問い合わせ導線が弱い。
 8. 旧ページのコンソールエラー（Best Practices で減点）：Squarespace のコンポーネントJSがローカル保存版と CDN 版で二重読み込み（`... is already defined`）、`/scripts/*.js`・`/api/census/RecordHit` の 404。新方式への置き換えで解消する。
 9. 新方式記事3本（skin-check / four-simple-habits / GLP1_Supplements）の `og:image` が存在しない `/images/education/*.jpg` を指している（SNSでシェアしたとき画像が出ない）。
-10. Kit のスライドインフォーム（保存済みHTML）が本文に重なって表示される（PageSpeed のスクリーンショットでも確認）。
+10. （トップは解消済み）旧ページに残る Kit スライドインの保存済みHTMLが本文に重なる。旧ページを新方式にするときに外す。
 11. Netlify は URL を小文字に正規化する（例 `/education/GLP1_Supplements` → `/education/glp1_supplements`）。canonical は小文字の最終URLで書く。
 
 ## 9. 変更履歴（主なもの）
@@ -176,3 +179,7 @@ python3 -m http.server 8080
 - 2026-09-27：ヘッダーロゴを「Torii Health | Part of Iris Dental Medical」の横長ロゴに変更（画面幅に応じて高さを調整）。ヘッダー/フッターの左右余白が 0 になっていた不具合を修正。
 - 2026-09-27：新ロゴでヘッダーが窮屈になっていたため、ヘッダー/フッターの幅を 1280px＋左右余白 32px（スマホ 20px）に広げ、ロゴ・ナビ・Book now の間隔を調整。スマホはロゴを画面幅に合わせて伸縮。
 - 2026-09-30：PageSpeed の SEO / Best Practices が「!」（計測エラー）になっていた問題を修正。原因は `include-partials.js` が `[data-src]` を持つ Squarespace 画像まで fetch し、画像バイナリを `<img>` 内に HTML として挿入していたこと（本番で DOM が 304 階層になり Lighthouse の `DOM.getDocument` が `CBOR: stack limit exceeded` で失敗）。対象をヘッダー/フッターに限定。あわせて canonical・og:url・内部リンクを www から apex に統一、GLP1 記事の canonical（404 のURLを指していた）と壊れた JSON-LD を修正、保存されていた reCAPTCHA のスナップショット（iframe・古い api.js）を全ページから削除、`robots.txt`・`sitemap.xml` を追加、FAQ の title「FAQs 2」を修正、meta description が空だった12ページに追加。
+- 2026-10-01：トップページ（index.html）を Website Content & Design Brief（D1）に沿って新方式で作り直し。Squarespace の CSS/JS をすべて外し、`assets/css/home.css` を追加（読み込み順 base → styles → home）。構成：ヒーロー（インラインSVGイラスト）→ 3本柱 → 患者の声 → 選ばれる理由 → サービス → ミッション → メルマガ（Kit 7684048）。title/description/OGP（`Images/Shared/og-home.jpg`）/MedicalClinic の JSON-LD を刷新。favicon を Squarespace CDN からローカル（`/favicon.ico`・`Images/Shared/favicon-192.png`・`apple-touch-icon.png`）に変更。
+- 2026-10-01（2）：メルマガを Kit 公式の HTML 埋め込み（ck.5.js）に戻し、スライドイン（7684212：50%スクロールで表示・PCのみ・閉じたら15日非表示）も復活。ck.5.js は「最初の操作時 or 読み込み3秒後」に遅延読み込み（それまでは通常 POST で Kit に送信される）。Kit の設定を変えたら index.html の `data-options` を Kit の HTML 埋め込みコードに合わせる。フォントを Google Fonts の `@import` から自前ホスト（`assets/fonts`、可変フォント・SIL OFL）に変更し、`styles.css` に `@font-face` を記述（全ページに効く）。`partials/header.html`・`footer.html` の `aria-label` 付き div に `role="group"` を追加（Lighthouse アクセシビリティ指摘）。Netlify 用の `_headers` を追加（セキュリティヘッダー、フォント1年・画像7日のキャッシュ）。
+- 2026-10-07：Design Brief（D1）掲載ページをすべて新方式に作り直し（Services / Veteran Care / About / Team / FAQ / Appointments / Billing）。共通部品を `assets/css/site.css` に集約（ページヒーロー・パンくず・カード・CTA帯・FAQアコーディオン・Kit フォーム等）、トップも site.css を使う形に変更（見た目は不変）。ナビを「Services / Veteran Care / About / Team / FAQ / Education / Patient Portal / Book now」のフラット構成に、フッターを「Torii Health | part of Iris Dental Medical」＋4列（Care / About / Contact）に変更、Work With Us はフッターへ。ヘッダーの aria-current 判定が apex ドメインのリンクで効いていなかった不具合を修正。`/vetconsultation`・`/service` を `_redirects` で `/veteran-consultation` に 301（force）。各ページに OG 画像（`Images/Shared/og-*.jpg`）、BreadcrumbList / MedicalWebPage 等の構造化データを追加。sitemap から vetconsultation を削除。
+- 2026-10-07（2）：Services に「A closer look at our care」を追加（旧 Services・旧 FAQ にあった PrEP/PEP、性別適合ホルモン療法、ED、依存症治療、ADHD（刺激薬は日本で処方不可の注記）、GLP-1、テストステロン、ニキビ、各種検査、薬の郵送・米軍薬局への電子処方など）。構造化データに availableService を追加。Dr. Yao の綴りを Masahiro に修正。
