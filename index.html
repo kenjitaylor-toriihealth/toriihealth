@@ -97,7 +97,7 @@
 
     <!-- ================================================================
       HERO
-      背景は軽量なインラインSVGイラスト(画像リクエストなし・LCPはテキスト)。
+      背景は軽量なインラインSVGイラスト（昼間の富士山と鳥居・候補A。画像リクエストなし・LCPはテキスト）。
       実写のJapan画像に差し替える場合は、<svg class="hero__art"> を
       <img class="hero__art" src="..." alt="" width="1600" height="900"
            fetchpriority="high" style="object-fit:cover"> に置き換える。
@@ -105,24 +105,13 @@
     <section class="hero" aria-labelledby="hero-title">
       <svg class="hero__art" viewBox="0 0 1440 720" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
         <defs>
-          <linearGradient id="h-sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#0b1d3a"/>
-            <stop offset=".5" stop-color="#1c3d70"/>
-            <stop offset=".66" stop-color="#5b5a8c"/>
-            <stop offset=".75" stop-color="#e4876c"/>
-          </linearGradient>
-          <radialGradient id="h-glow" cx="1000" cy="530" r="380" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#ffc48a" stop-opacity=".75"/>
-            <stop offset="1" stop-color="#ffc48a" stop-opacity="0"/>
+          <linearGradient id="h-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f8fd8"/><stop offset="0.45" stop-color="#7fbaea"/><stop offset="0.7" stop-color="#c4e2f7"/><stop offset="0.77" stop-color="#eef7fd"/></linearGradient>
+          <radialGradient id="h-glow" cx="1250" cy="90" r="380" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
           </radialGradient>
-          <linearGradient id="h-mtn" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#36578c"/>
-            <stop offset="1" stop-color="#172f58"/>
-          </linearGradient>
-          <linearGradient id="h-water" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#1a3a6a"/>
-            <stop offset="1" stop-color="#0a1a35"/>
-          </linearGradient>
+          <linearGradient id="h-mtn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f9cc4"/><stop offset="1" stop-color="#4c6c9a"/></linearGradient>
+          <linearGradient id="h-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d9bd0"/><stop offset="1" stop-color="#2f6aa3"/></linearGradient>
           <g id="h-torii">
             <path d="M1104 300 Q1255 330 1416 300 L1410 324 Q1255 350 1110 324 Z"/>
             <rect x="1124" y="326" width="272" height="13"/>
@@ -135,21 +124,16 @@
           </g>
         </defs>
         <rect width="1440" height="720" fill="url(#h-sky)"/>
-        <g fill="#fff" opacity=".55">
-          <circle cx="640" cy="70" r="1.6"/><circle cx="820" cy="140" r="1.2"/><circle cx="1010" cy="60" r="1.8"/>
-          <circle cx="1190" cy="120" r="1.2"/><circle cx="1330" cy="50" r="1.5"/><circle cx="940" cy="190" r="1"/>
-        </g>
         <rect width="1440" height="720" fill="url(#h-glow)"/>
+        <g fill="#fff" opacity="0.9" transform="translate(1010 150) scale(1.0)"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g><g fill="#fff" opacity="0.9" transform="translate(1300 90) scale(0.8)"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g><g fill="#fff" opacity="0.8" transform="translate(860 250) scale(0.6)"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g>
         <path d="M560 528 C700 476 822 362 905 272 L925 262 L947 268 C1030 360 1160 476 1320 528 Z" fill="url(#h-mtn)"/>
-        <path d="M905 272 L925 262 L947 268 C972 296 996 322 1016 344 L998 336 L984 350 L966 332 L948 350 L930 332 L912 348 L894 334 L876 346 C886 326 895 296 905 272 Z" fill="#eef3fb" opacity=".95"/>
-        <path d="M0 548 C200 512 380 526 560 520 C760 514 900 534 1100 516 C1260 504 1360 512 1440 508 L1440 560 L0 560 Z" fill="#0f2547" opacity=".92"/>
+        <path d="M905 272 L925 262 L947 268 C972 296 996 322 1016 344 L998 336 L984 350 L966 332 L948 350 L930 332 L912 348 L894 334 L876 346 C886 326 895 296 905 272 Z" fill="#ffffff" opacity=".97"/>
+        <path d="M0 548 C200 512 380 526 560 520 C760 514 900 534 1100 516 C1260 504 1360 512 1440 508 L1440 560 L0 560 Z" fill="#3f6b5e"/>
         <rect y="556" width="1440" height="164" fill="url(#h-water)"/>
-        <ellipse cx="1000" cy="566" rx="280" ry="14" fill="#ffc48a" opacity=".28"/>
-        <g stroke="#ffc48a" stroke-linecap="round" opacity=".22" stroke-width="3">
-          <path d="M840 590h180M920 612h150M980 636h90"/>
-        </g>
+        <g stroke="#ffffff" stroke-linecap="round" opacity=".45" stroke-width="3"><path d="M840 590h180M920 612h150M980 636h90M640 600h120M700 640h80"/></g>
         <use href="#h-torii" fill="#d0202f"/>
-        <use href="#h-torii" fill="#d0202f" opacity=".22" transform="matrix(1 0 0 -0.45 0 942.5)"/>
+        <use href="#h-torii" fill="#6e1c26" opacity=".38" transform="matrix(1 0 0 -0.45 0 942.5)"/>
+        
       </svg>
 
       <div class="th-container hero__inner">
