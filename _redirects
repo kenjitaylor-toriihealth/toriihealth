@@ -1,1 +1,8 @@
 /CLAUDE.md  /404.html  404!
+
+# 2026-10: Veteran Care の重複ページを正規URLに統合（URL は /veteran-consultation のまま）
+# 実ファイルが残っているため "!"（force）で必ずリダイレクトさせる
+/vetconsultation      /veteran-consultation  301!
+/vetconsultation.htm  /veteran-consultation  301!
+/service              /veteran-consultation  301!
+/service.html         /veteran-consultation  301!
