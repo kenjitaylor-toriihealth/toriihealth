@@ -6,3 +6,7 @@
 /vetconsultation.htm  /veteran-consultation  301!
 /service              /veteran-consultation  301!
 /service.html         /veteran-consultation  301!
+
+# 2026-10-12: 記事タイトル変更に合わせてスラッグを変更（cold-or-flu → viral-uri）
+/education/why-your-body-aches-with-a-cold-or-flu       /education/why-your-body-aches-with-a-viral-uri  301!
+/education/why-your-body-aches-with-a-cold-or-flu.html  /education/why-your-body-aches-with-a-viral-uri  301!
