@@ -469,6 +469,20 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
 .th-person__bio + .th-btn { margin-top: auto; }
 .th-person .th-btn--outline { padding: 11px 22px; font-size: 0.88rem; }
 .th-person__note { margin-top: 20px; font-size: 0.88rem; color: var(--th-text-muted); }
+/* PC・タブレット：同じ行のカードで「写真／名前／肩書き／場所／紹介文／予約ボタン」の行を subgrid で共有し、
+   紹介文の長さが違っても予約ボタンが必ず同じ高さに並ぶようにする（ブラウザ差が出やすい flex の伸縮に頼らない）。
+   subgrid 非対応の古いブラウザは上の flex（ボタンを下端へ寄せる）で表示。 */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 640px) {
+    .th-person { display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0; }
+    .th-person__body { display: contents; }
+    .th-person__body > * { margin-left: 24px; margin-right: 24px; }
+    .th-person h3 { margin-top: 22px; }
+    .th-person__bio { margin-bottom: 0; }
+    .th-person .th-btn { margin-top: 20px; margin-bottom: 24px; align-self: start; justify-self: start; }
+    .th-person__note { margin-bottom: 24px; align-self: start; }
+  }
+}
 
 /* --------------------------------------------------------------------------
    FAQ (native <details> accordions — no JS)
