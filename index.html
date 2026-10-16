@@ -39,6 +39,7 @@
      先読みしておき、JS 実行を待たずにダウンロードを始める（表示の遅れ・ガタつき対策）。 -->
 <link rel="preload" href="./partials/header.html" as="fetch" crossorigin>
 <link rel="preload" href="/Images/Shared/ToriiHealth_IrisDental_Logo_header.png" as="image">
+<link rel="preload" as="image" type="image/webp" imagesrcset="./Images/Home/hero-fuji-torii-960.webp 960w, ./Images/Home/hero-fuji-torii-1600.webp 1600w, ./Images/Home/hero-fuji-torii-2400.webp 2400w" imagesizes="100vw" fetchpriority="high">
 <link rel="dns-prefetch" href="https://f.convertkit.com">
 
 <link rel="stylesheet" href="./assets/css/base.css">
@@ -101,51 +102,24 @@
 
     <!-- ================================================================
       HERO
-      背景は軽量なインラインSVGイラスト（昼間の富士山と鳥居・候補A。画像リクエストなし・LCPはテキスト）。
-      実写のJapan画像に差し替える場合は、<svg class="hero__art"> を
-      <img class="hero__art" src="..." alt="" width="1600" height="900"
-           fetchpriority="high" style="object-fit:cover"> に置き換える。
+      背景は写真（富士山・湖の鳥居・景色を眺める家族連れの後ろ姿）。2026-10-16 のフィードバック
+      「イラストが不自然／もっと写実的に／人を入れて」を受けてイラスト（インラインSVG）から変更。
+      ※ 元画像は約850px幅しかなかったため、Real-ESRGAN（x4plus）で4倍に AI 拡大してから
+        960/1600/2400px に書き出した。より良い元画像が手に入ったら同じ名前で差し替える
+        （縦横比が変わる場合は img の width/height と preload も直す）。
       ================================================================ -->
     <section class="hero" aria-labelledby="hero-title">
-      <svg class="hero__art" viewBox="0 0 1440 720" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
-        <defs>
-          <linearGradient id="h-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f8fd8"/><stop offset="0.45" stop-color="#7fbaea"/><stop offset="0.7" stop-color="#c4e2f7"/><stop offset="0.77" stop-color="#eef7fd"/></linearGradient>
-          <radialGradient id="h-glow" cx="1250" cy="90" r="380" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
-            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-          </radialGradient>
-          <linearGradient id="h-mtn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f9cc4"/><stop offset="1" stop-color="#4c6c9a"/></linearGradient>
-          <linearGradient id="h-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d9bd0"/><stop offset="1" stop-color="#2f6aa3"/></linearGradient>
-          <g id="h-torii">
-            <path d="M1104 300 Q1255 330 1416 300 L1410 324 Q1255 350 1110 324 Z"/>
-            <rect x="1124" y="326" width="272" height="13"/>
-            <rect x="1250" y="339" width="20" height="36"/>
-            <rect x="1118" y="372" width="284" height="17"/>
-            <path d="M1161 339 H1186 L1192 650 H1155 Z"/>
-            <path d="M1334 339 H1359 L1365 650 H1328 Z"/>
-            <rect x="1153" y="616" width="41" height="34" fill="#1a1a1a"/>
-            <rect x="1326" y="616" width="41" height="34" fill="#1a1a1a"/>
-          </g>
-        </defs>
-        <rect width="1440" height="720" fill="url(#h-sky)"/>
-        <rect width="1440" height="720" fill="url(#h-glow)"/>
-        <g fill="#fff" opacity="0.9" transform="translate(1010 150) scale(1.0)"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g><g fill="#fff" opacity="0.9" transform="translate(1300 90) scale(0.8)"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g><g fill="#fff" opacity="0.8" transform="translate(860 250) scale(0.6)"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g>
-        <path d="M560 528 C700 476 822 362 905 272 L925 262 L947 268 C1030 360 1160 476 1320 528 Z" fill="url(#h-mtn)"/>
-        <path d="M905 272 L925 262 L947 268 C972 296 996 322 1016 344 L998 336 L984 350 L966 332 L948 350 L930 332 L912 348 L894 334 L876 346 C886 326 895 296 905 272 Z" fill="#ffffff" opacity=".97"/>
-        <path d="M0 548 C200 512 380 526 560 520 C760 514 900 534 1100 516 C1260 504 1360 512 1440 508 L1440 560 L0 560 Z" fill="#3f6b5e"/>
-        <rect y="556" width="1440" height="164" fill="url(#h-water)"/>
-        <g stroke="#ffffff" stroke-linecap="round" opacity=".45" stroke-width="3"><path d="M840 590h180M920 612h150M980 636h90M640 600h120M700 640h80"/></g>
-        <use href="#h-torii" fill="#d0202f"/>
-        <use href="#h-torii" fill="#6e1c26" opacity=".38" transform="matrix(1 0 0 -0.45 0 942.5)"/>
-        
-      </svg>
+      <picture>
+        <source type="image/webp" srcset="./Images/Home/hero-fuji-torii-960.webp 960w, ./Images/Home/hero-fuji-torii-1600.webp 1600w, ./Images/Home/hero-fuji-torii-2400.webp 2400w" sizes="100vw">
+        <img class="hero__art" src="./Images/Home/hero-fuji-torii-1600.jpg" alt="" width="1600" height="866" fetchpriority="high" decoding="async">
+      </picture>
 
       <div class="th-container hero__inner">
         <div class="hero__content">
           <p class="th-eyebrow hero__eyebrow"><b>Family Medicine</b> <span aria-hidden="true">|</span> <b>Behavioral Health</b> <span aria-hidden="true">|</span> <b>Connected Care</b></p>
           <h1 id="hero-title">Your Medical Home in Japan</h1>
-          <p class="hero__lead">English-language family medicine for SOFA Americans, U.S.&nbsp;Veterans, and their families.</p>
-          <p class="hero__text">Torii Health, part of Iris Dental Medical, brings comprehensive family medicine, integrated behavioral health, and connected care together under one team.</p>
+          <p class="hero__lead">Family medicine for SOFA Americans, U.S.&nbsp;Veterans, and their families.</p>
+          <p class="hero__text">Torii Health, the medical section of Iris Dental Medical, brings comprehensive family medicine, integrated behavioral health, and connected care together under one team.</p>
           <div class="th-btns">
             <a class="th-btn th-btn--primary" href="https://toriihealth.org/appointments">Book an Appointment<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="th-btn th-btn--outline-light" href="https://toriihealth.org/team">Meet the Team</a>
@@ -194,7 +168,7 @@
           <blockquote>
             <p>Torii Health with Iris Dental Medical has completely changed my view of healthcare in Japan. Knowing Torii Health is here makes me feel safer and more confident living here.</p>
           </blockquote>
-          <figcaption>— Torii Health Patient</figcaption>
+          <figcaption>— Torii Health / Iris Dental Medical Patient</figcaption>
         </figure>
       </div>
     </section>
@@ -217,7 +191,7 @@
             <span class="reason__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
             <div>
               <h3>U.S. insurance support</h3>
-              <p>We work with plans including FSBP/AFSPA, BCBS, Cigna, and TRICARE. Direct-billing arrangements vary by plan and eligibility. <a href="https://toriihealth.org/billing">Insurance &amp; billing</a></p>
+              <p>We work with plans including the VA Foreign Medical Program, FSBP/AFSPA, BCBS, Cigna, and TRICARE. Direct-billing arrangements vary by plan and eligibility. <a href="https://toriihealth.org/billing">Insurance &amp; billing</a></p>
             </div>
           </li>
           <li class="reason">
@@ -231,7 +205,7 @@
             <span class="reason__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="20" r="2"/><path d="M7 6h7a3.5 3.5 0 0 1 0 7h-4a3.5 3.5 0 0 0 0 7h7"/></svg></span>
             <div>
               <h3>Connected care</h3>
-              <p>One team that stays involved, coordinates what comes next, and supports you when care extends beyond our clinic.</p>
+              <p>One team that stays involved, coordinates what comes next, and supports you when care needs extend beyond our clinic.</p>
             </div>
           </li>
         </ul>
@@ -267,7 +241,7 @@
     <section class="th-section mission" aria-labelledby="mission-title">
       <div class="th-container">
         <h2 class="th-eyebrow" id="mission-title">Our Mission</h2>
-        <p class="mission__statement">To create a medical home for SOFA Americans in Japan built around relationships, continuity, and the needs of the community.</p>
+        <p class="mission__statement">Create a medical home for SOFA Americans in Japan built around relationships, continuity, and the needs of the community.</p>
         <p class="mission__pillars"><b>Comprehensive Family Medicine.</b> <b>Integrated Behavioral Health.</b> <b>Connected Care.</b></p>
         <div class="th-btns">
           <a class="th-btn th-btn--primary" href="https://toriihealth.org/appointments">Book an Appointment</a>
