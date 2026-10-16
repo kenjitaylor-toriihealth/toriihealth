@@ -5,7 +5,8 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 
 ## 1. ビジネスとゴール
 
-- **Torii Health**：日本在住の米国人（SOFA・在日米軍関係者・退役軍人とその家族が中心）向けに、米国基準の家庭医療を英語で提供するクリニック。
+- **Torii Health**：日本在住の米国人（SOFA・在日米軍関係者・退役軍人とその家族が中心）向けに、米国基準の家庭医療を英語で提供する医療サービスの**ブランド名**。
+  - **クリニック（医療機関）は Iris Dental Medical**（2019年開業・院長 Dr. Kaneshima、医科・歯科とも Iris Dental Medical が提供）。サイトの文言・構造化データで Torii Health を「クリニック」として扱わない（2026-10-16 方針）。
   - 対面：Iris Dental and Medical（相模原市南区相武台）／遠隔診療（Telemedicine）
   - 米国保険の直接請求（AFSPA, BCBS, Cigna など）
   - サービス：プライマリケア、専門医連携、行動医療（ADHD・うつ・不安）、GLP-1、退役軍人向け障害認定診察（Veteran Consultation）、乳がん検診（海老名総合病院）、睡眠検査 など
@@ -185,3 +186,4 @@ python3 -m http.server 8080
 - 2026-10-07（2）：Services に「A closer look at our care」を追加（旧 Services・旧 FAQ にあった PrEP/PEP、性別適合ホルモン療法、ED、依存症治療、ADHD（刺激薬は日本で処方不可の注記）、GLP-1、テストステロン、ニキビ、各種検査、薬の郵送・米軍薬局への電子処方など）。構造化データに availableService を追加。Dr. Yao の綴りを Masahiro に修正。
 - 2026-10-11：トップのヒーローを昼間のイラスト（候補A：青空・雲・緑の丘・富士山・鳥居）に変更。PC の紺のグラデーションを左側だけに縮め、ヒーローとミッション欄のピンク系アクセント（区切り線・アイコン・OUR MISSION）を白系に変更。鳥居の水面の映り込みを暗い赤茶に（ピンク・紫に見えないように）。`Images/Shared/og-home.jpg` も昼間の絵柄に更新。
 - 2026-10-12：記事「Why Your Body Aches With a Cold or Flu」をメルマガ最新版に合わせて改訂し、タイトルを「Why Your Body Aches With a Viral URI」に変更。URL を `/education/why-your-body-aches-with-a-viral-uri` に変更し、旧URLは `_redirects` で 301。title タグは検索語を残すため「…Viral URI (Cold or Flu)」、`alternativeHeadline` に旧タイトル。本文は抗ウイルス薬の対象（ハイリスク群・48時間以内）とインフル予防接種（基地＋Torii）を更新。OG 画像を `og-body-aches-viral-uri.jpg` に差し替え、sitemap・education 一覧・コレステロール記事の Next リンクを更新。
+- 2026-10-16：About（our-story.html）を上司の原稿に沿って全面改訂。Iris Dental Medical を「クリニック」として前面に（ヒーロー：About Our Clinic / Iris Dental Medical）→ The gap we saw → Why “Torii Health” → Our mission → One practice, medical and dental → CTA の構成に。家族写真を Dr. Taylor・Dr. Kaneshima の2ショット（`Images/About/taylor-kaneshima-*`、バナー画像からロゴ文字を消して切り出し）に差し替え（家族写真ファイルは残置）。OG 画像を `Images/Shared/og-about-clinic.jpg` に変更（旧 og-about.jpg は残置）。site.css に About 用の小さな部品（`.th-prose--measure`・`.th-gateway`・ヒーロー内 figure）を追加。全7ページの JSON-LD `#clinic` を name「Iris Dental Medical」＋ brand「Torii Health」、medicalSpecialty に Dentistry を追加、parentOrganization を削除。フッターの「Our Story」→「About Us」。TODO：Dr. Kaneshima のフルネーム・肩書き（未確認、確認後に本文・alt・JSON-LD の founder に反映）。
