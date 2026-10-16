@@ -621,9 +621,11 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
 .th-card--center .th-card__link { align-self: center; }
 .th-facts--light { box-shadow: 0 18px 40px rgba(15, 37, 71, 0.10); border: 1px solid var(--th-border); }
 
-/* Hero: text on top, full-width clinic banner below (art-directed: square on phones) */
-.th-page-hero__inner--banner { padding-bottom: clamp(28px, 4vw, 44px); }
-.th-about-banner { padding-bottom: clamp(40px, 6vw, 72px); }
+/* Hero: PC は文字の右に医師2人の写真、タブレット・スマホは文字の下にバナー（<picture> で出し分け） */
+.th-about-hero { padding-bottom: clamp(40px, 6vw, 72px); }
+@media (min-width: 960px) {
+  .th-about-hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 5vw, 64px); padding-bottom: clamp(56px, 7vw, 88px); }
+}
 .th-banner img {
   display: block;
   width: 100%;
@@ -634,32 +636,67 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
 }
 .th-page-hero .th-figure figcaption { color: #c9d4e6; }
 
-/* "Why Torii Health" illustration (inline SVG, same visual language as the home hero) */
-.th-gateway {
-  margin: 0;
-  background: #fff;
-  border: 1px solid var(--th-border);
-  border-radius: 14px;
+/* "Why Torii Health": 写真を右に置き、左端を紺へ透明にフェード（トップのヒーローと同じ見せ方） */
+.th-why-torii {
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 18px 40px rgba(15, 37, 71, 0.12);
+  isolation: isolate;
+  background: var(--th-ink);
+  color: #fff;
 }
-.th-gateway__art { display: block; width: 100%; height: auto; }
-.th-gateway__caption {
+.th-why-torii .th-heading { color: #fff; }
+.th-why-torii .th-prose p { color: #d5deec; }
+.th-why-torii__photo img { display: block; width: 100%; height: auto; }
+.th-why-torii__legend {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   gap: 8px 12px;
-  padding: 16px 18px;
+  margin-top: 26px;
   font-family: var(--th-font-display);
   font-weight: 700;
   font-size: 0.92rem;
-  color: var(--th-navy);
 }
-.th-gateway__link { width: 28px; height: 2px; border-radius: 1px; background: #c5cfdd; }
-.th-gateway__chip { background: var(--th-red); color: #fff; border-radius: var(--th-radius-pill); padding: 4px 14px; }
+.th-why-torii .th-prose .th-why-torii__legend { color: #fff; }
+.th-why-torii__link { width: 28px; height: 2px; border-radius: 1px; background: rgba(255, 255, 255, 0.4); }
+.th-why-torii__chip { background: var(--th-red); color: #fff; border-radius: var(--th-radius-pill); padding: 4px 14px; }
+.th-why-torii__legend span { white-space: nowrap; }
+@media (min-width: 960px) {
+  .th-why-torii { display: flex; align-items: center; min-height: min(36vw, 640px); }
+  .th-why-torii > .th-container { position: relative; z-index: 1; }
+  .th-why-torii__text { max-width: min(36vw, 450px); }
+  .th-why-torii__photo img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* 写真の左端は「画面の28%」か「文字の列の途中」の右側のほう（広い画面で文字と基地が重ならないように） */
+    --why-photo-left: max(28%, calc(50% - 320px));
+    left: var(--why-photo-left);
+    width: calc(100% - var(--why-photo-left));
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 60%;
+    z-index: -1;
+    /* 左端（基地側）をゆっくり透明に。基地・星条旗は薄く見える程度に残す */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.12) 10%, rgba(0,0,0,0.4) 22%, rgba(0,0,0,0.8) 36%, #000 50%);
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.12) 10%, rgba(0,0,0,0.4) 22%, rgba(0,0,0,0.8) 36%, #000 50%);
+  }
+}
+@media (max-width: 959px) {
+  .th-why-torii { padding-bottom: 0; }
+  .th-why-torii__photo img {
+    margin-top: 4px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+  }
+}
+@media (min-width: 960px) and (max-width: 1199px) {
+  .th-why-torii__legend { font-size: 0.8rem; gap: 6px; flex-wrap: nowrap; }
+  .th-why-torii__link { width: 16px; flex: none; }
+  .th-why-torii__chip { padding: 3px 10px; }
+}
 @media (max-width: 479px) {
-  .th-gateway__caption { font-size: 0.82rem; gap: 6px; padding: 14px 10px; flex-wrap: nowrap; }
-  .th-gateway__link { width: 12px; flex: none; }
-  .th-gateway__chip { padding: 3px 10px; white-space: nowrap; }
+  .th-why-torii__legend { font-size: 0.76rem; gap: 5px; flex-wrap: nowrap; }
+  .th-why-torii__link { width: 10px; flex: none; }
+  .th-why-torii__chip { padding: 3px 9px; white-space: nowrap; }
 }
