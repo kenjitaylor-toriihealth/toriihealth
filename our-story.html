@@ -34,7 +34,8 @@
 <link rel="preload" href="./assets/fonts/nunito-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./partials/header.html" as="fetch" crossorigin>
 <link rel="preload" href="/Images/Shared/ToriiHealth_IrisDental_Logo_header.png" as="image">
-<link rel="preload" as="image" type="image/webp" imagesrcset="/Images/About/taylor-kaneshima-720.webp 720w, /Images/About/taylor-kaneshima-1200.webp 1200w" imagesizes="(min-width: 960px) 460px, 100vw">
+<link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" imagesrcset="/Images/About/clinic-banner-mobile-720.webp 720w, /Images/About/clinic-banner-mobile-1200.webp 1200w" imagesizes="calc(100vw - 40px)">
+<link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" imagesrcset="/Images/About/clinic-banner-1280.webp 1280w, /Images/About/clinic-banner-2400.webp 2400w" imagesizes="(min-width: 1344px) 1280px, (min-width: 960px) calc(100vw - 64px), calc(100vw - 40px)">
 
 <link rel="stylesheet" href="./assets/css/base.css">
 <link rel="stylesheet" href="./assets/css/styles.css">
@@ -58,9 +59,9 @@
       },
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://toriihealth.org/Images/About/taylor-kaneshima-1200.jpg",
-        "width": 1200,
-        "height": 804
+        "url": "https://toriihealth.org/Images/About/clinic-banner-1600.jpg",
+        "width": 1600,
+        "height": 591
       },
       "breadcrumb": {
         "@id": "https://toriihealth.org/our-story#breadcrumb"
@@ -96,7 +97,7 @@
       "url": "https://toriihealth.org/",
       "description": "Private clinic in Sagamihara near Camp Zama offering medical and dental care. Its medical services, Torii Health, provide English-language family medicine for SOFA Americans in Japan.",
       "foundingDate": "2019",
-      "image": "https://toriihealth.org/Images/About/taylor-kaneshima-1200.jpg",
+      "image": "https://toriihealth.org/Images/About/clinic-banner-1600.jpg",
       "telephone": "+81-70-9160-7242",
       "email": "info@toriihealth.org",
       "address": {
@@ -140,7 +141,7 @@
           </ol>
         </nav>
       </div>
-      <div class="th-container th-page-hero__inner">
+      <div class="th-container th-page-hero__inner th-page-hero__inner--single th-page-hero__inner--banner">
         <div>
           <p class="th-eyebrow">About Our Clinic</p>
           <h1 id="page-title">Iris Dental Medical</h1>
@@ -151,12 +152,15 @@
             <a class="th-btn th-btn--outline-light" href="https://toriihealth.org/team">Meet the Team</a>
           </div>
         </div>
-        <figure class="th-figure">
+      </div>
+      <div class="th-container th-about-banner">
+        <figure class="th-figure th-banner">
           <picture>
-            <source type="image/webp" srcset="/Images/About/taylor-kaneshima-720.webp 720w, /Images/About/taylor-kaneshima-1200.webp 1200w" sizes="(min-width: 960px) 460px, 100vw">
-            <img src="/Images/About/taylor-kaneshima-1200.jpg" alt="Dr. Kenji Taylor and Dr. Kaneshima smiling in white coats at Iris Dental Medical" width="1200" height="804" fetchpriority="high" decoding="async">
+            <source media="(max-width: 767px)" type="image/webp" srcset="/Images/About/clinic-banner-mobile-720.webp 720w, /Images/About/clinic-banner-mobile-1200.webp 1200w" sizes="calc(100vw - 40px)" width="1200" height="1204">
+            <source media="(min-width: 768px)" type="image/webp" srcset="/Images/About/clinic-banner-1280.webp 1280w, /Images/About/clinic-banner-2400.webp 2400w" sizes="(min-width: 1344px) 1280px, (min-width: 960px) calc(100vw - 64px), calc(100vw - 40px)" width="1280" height="473">
+            <img src="/Images/About/clinic-banner-1600.jpg" alt="Torii Health, part of Iris Dental Medical: Healthcare that feels like home. Dental and medical; primary, specialty and behavioral care; all ages welcome. Dr. Kenji Taylor and Dr. Kaneshima in white coats." width="1600" height="591" fetchpriority="high" decoding="async">
           </picture>
-          <figcaption>Dr. Kenji Taylor and Dr. Kaneshima</figcaption>
+          <figcaption>Dr. Kenji Taylor and Dr. Kaneshima at Iris Dental Medical</figcaption>
         </figure>
       </div>
     </section>
@@ -165,13 +169,27 @@
       THE GAP WE SAW
       ================================================================ -->
     <section class="th-section" aria-labelledby="gap-title">
-      <div class="th-container">
-        <div class="th-prose th-prose--measure">
+      <div class="th-container th-split">
+        <div class="th-prose">
           <h2 id="gap-title" class="th-heading">The gap we saw</h2>
           <p>Many Americans living in Japan under SOFA have limited access to on-base care. Military treatment facilities prioritize active duty members, so retirees, DoD civilians, contractors and many family members are seen on a Space-Available basis, only when capacity allows. Veterans face an even bigger gap: there is no VA medical center in Japan. Off base, patients must navigate a health system that is unfamiliar and often not available in English.</p>
           <p>Dr. Taylor saw this firsthand as a family physician at Camp Zama, and his own family lived it while going through pregnancy and childbirth in Japan. Too many Americans here had no true medical home.</p>
           <p class="th-note">Background: <a href="https://www.jcmadvocacy.org/about/#problem" target="_blank" rel="noopener">JCMA’s analysis of access to care for SOFA families</a></p>
         </div>
+        <ul class="th-facts th-facts--light" aria-label="Why many Americans in Japan lack a medical home">
+          <li>
+            <span class="th-facts__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <div><strong>Space-Available on base</strong><span>Retirees, DoD civilians, contractors and many family members are seen only when capacity allows.</span></div>
+          </li>
+          <li>
+            <span class="th-facts__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V9l8-5 8 5v12"/><path d="M12 10v6M9 13h6"/><path d="M3 3l18 18"/></svg></span>
+            <div><strong>No VA medical center in Japan</strong><span>Veterans face an even bigger gap.</span></div>
+          </li>
+          <li>
+            <span class="th-facts__icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+            <div><strong>An unfamiliar system off base</strong><span>Care in Japan is often not available in English.</span></div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -185,10 +203,77 @@
           <p>A torii marks a gateway, the threshold you pass through on the way in. Our clinic sits at a threshold too: between the base and the Japanese community, and between the care Americans know and the care available here.</p>
           <p>We named our medical services Torii Health because that is the role we want to play, a familiar doorway into care in Japan.</p>
         </div>
-        <div class="th-gateway" aria-hidden="true">
-          <svg viewBox="0 0 320 260" aria-hidden="true" focusable="false"><path d="M0 22 Q160 52 320 22 L314 48 Q160 76 6 48 Z"/><rect x="22" y="54" width="276" height="14"/><rect x="150" y="68" width="20" height="40"/><rect x="16" y="104" width="288" height="18"/><path d="M58 68h26l6 192H50Z"/><path d="M236 68h26l8 192h-40Z"/></svg>
-          <p><span lang="ja">鳥居</span> torii<small>a gateway into care</small></p>
-        </div>
+        <figure class="th-gateway">
+          <svg class="th-gateway__art" viewBox="0 0 800 560" role="img" aria-labelledby="gw-title" focusable="false">
+            <title id="gw-title">Illustration: a red torii gate with Mount Fuji beyond, standing between a base on one side and a Japanese neighborhood on the other</title>
+            <defs>
+              <linearGradient id="gw-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f8fd8"/><stop offset="0.5" stop-color="#7fbaea"/><stop offset="0.8" stop-color="#c4e2f7"/><stop offset="1" stop-color="#eef7fd"/></linearGradient>
+              <radialGradient id="gw-glow" cx="640" cy="70" r="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0.55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <linearGradient id="gw-mtn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f9cc4"/><stop offset="1" stop-color="#4c6c9a"/></linearGradient>
+              <linearGradient id="gw-field" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6c9f80"/><stop offset="1" stop-color="#4a7b66"/></linearGradient>
+              <linearGradient id="gw-path" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9dfcb"/><stop offset="1" stop-color="#f6f0e4"/></linearGradient>
+              <g id="gw-cloud"><ellipse cx="0" cy="0" rx="60" ry="22"/><ellipse cx="40" cy="-14" rx="42" ry="26"/><ellipse cx="-38" cy="-8" rx="34" ry="18"/><ellipse cx="80" cy="4" rx="40" ry="16"/></g>
+            </defs>
+            <!-- sky -->
+            <rect width="800" height="560" fill="url(#gw-sky)"/>
+            <rect width="800" height="560" fill="url(#gw-glow)"/>
+            <g fill="#fff" opacity="0.9">
+              <use href="#gw-cloud" transform="translate(150 90) scale(0.8)"/>
+              <use href="#gw-cloud" transform="translate(660 120) scale(0.65)"/>
+              <use href="#gw-cloud" transform="translate(480 60) scale(0.45)" opacity="0.8"/>
+            </g>
+            <!-- Mt. Fuji, framed by the gate -->
+            <path d="M150 400 C260 360 340 290 384 248 L400 240 L418 246 C462 292 540 360 650 400 Z" fill="url(#gw-mtn)"/>
+            <path d="M384 248 L400 240 L418 246 C434 262 448 277 462 290 L448 284 L436 296 L422 282 L408 296 L394 282 L380 294 L366 284 L352 292 C362 278 372 262 384 248 Z" fill="#fff" opacity=".97"/>
+            <!-- far hills -->
+            <path d="M0 392 C120 372 240 384 360 388 C500 392 620 372 800 382 L800 420 L0 420 Z" fill="#3f6b5e"/>
+            <!-- left: the base (low flat-roof buildings, flag) -->
+            <rect x="22" y="352" width="116" height="52" fill="#a9bad2"/>
+            <rect x="22" y="346" width="116" height="8" fill="#7f96b6"/>
+            <rect x="128" y="366" width="92" height="38" fill="#c3cfdf"/>
+            <rect x="128" y="361" width="92" height="6" fill="#8ea3c0"/>
+            <g fill="#5d7aa1"><rect x="36" y="366" width="14" height="10"/><rect x="60" y="366" width="14" height="10"/><rect x="84" y="366" width="14" height="10"/><rect x="108" y="366" width="14" height="10"/><rect x="36" y="384" width="14" height="10"/><rect x="60" y="384" width="14" height="10"/><rect x="84" y="384" width="14" height="10"/><rect x="108" y="384" width="14" height="10"/><rect x="142" y="378" width="12" height="9"/><rect x="164" y="378" width="12" height="9"/><rect x="186" y="378" width="12" height="9"/></g>
+            <rect x="236" y="302" width="3" height="102" fill="#55657d"/>
+            <path d="M239 304 h34 v20 h-34 Z" fill="#1b3a6b"/>
+            <path d="M239 310 h34 v3 h-34 Z M239 317 h34 v3 h-34 Z" fill="#d0202f"/>
+            <!-- right: the neighborhood (gabled Japanese houses, trees) -->
+            <rect x="566" y="364" width="70" height="40" fill="#f4efe6"/>
+            <path d="M556 366 L601 338 L646 366 Z" fill="#3b4a63"/>
+            <rect x="590" y="380" width="16" height="24" fill="#a0745a"/>
+            <rect x="648" y="356" width="84" height="48" fill="#fbf7f0"/>
+            <path d="M638 358 L690 324 L742 358 Z" fill="#2f3d55"/>
+            <g fill="#7aa2c8"><rect x="660" y="370" width="16" height="12"/><rect x="704" y="370" width="16" height="12"/></g>
+            <rect x="744" y="372" width="56" height="32" fill="#f4efe6"/>
+            <path d="M736 374 L772 352 L808 374 Z" fill="#3b4a63"/>
+            <circle cx="552" cy="388" r="16" fill="#4f8a62"/><circle cx="540" cy="396" r="12" fill="#3f7a55"/>
+            <!-- foreground field + path through the gate -->
+            <path d="M0 404 C200 398 600 398 800 404 L800 560 L0 560 Z" fill="url(#gw-field)"/>
+            <path d="M232 560 L568 560 L428 432 L372 432 Z" fill="url(#gw-path)"/>
+            <g fill="#d9ccb2" opacity=".8"><rect x="380" y="446" width="40" height="5" rx="2"/><rect x="371" y="470" width="58" height="6" rx="3"/><rect x="356" y="500" width="88" height="7" rx="3"/><rect x="336" y="536" width="128" height="8" rx="4"/></g>
+            <!-- trees flanking the gate -->
+            <g fill="#2f5e4c"><circle cx="268" cy="398" r="22"/><circle cx="292" cy="404" r="16"/><circle cx="532" cy="400" r="20"/><circle cx="510" cy="406" r="14"/></g>
+            <!-- torii (same form as the home page hero / logo mark) -->
+            <g fill="#d0202f" transform="translate(-582.8 -66) scale(0.78)">
+              <path d="M1104 300 Q1255 330 1416 300 L1410 324 Q1255 350 1110 324 Z"/>
+              <rect x="1124" y="326" width="272" height="13"/>
+              <rect x="1250" y="339" width="20" height="36"/>
+              <rect x="1118" y="372" width="284" height="17"/>
+              <path d="M1161 339 H1186 L1192 650 H1155 Z"/>
+              <path d="M1334 339 H1359 L1365 650 H1328 Z"/>
+              <rect x="1153" y="616" width="41" height="34" fill="#1a1a1a"/>
+              <rect x="1326" y="616" width="41" height="34" fill="#1a1a1a"/>
+            </g>
+            <!-- navy ground line, echoing the underline in the Torii Health logo -->
+            <rect x="300" y="441" width="200" height="4" rx="2" fill="#1b3a6b" opacity=".85"/>
+          </svg>
+          <figcaption class="th-gateway__caption">
+            <span>The base</span>
+            <span class="th-gateway__link" aria-hidden="true"></span>
+            <span class="th-gateway__chip">Torii Health</span>
+            <span class="th-gateway__link" aria-hidden="true"></span>
+            <span>The community</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
