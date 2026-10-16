@@ -447,7 +447,8 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
   border-radius: 14px;
   overflow: hidden;
 }
-.th-person__photo { aspect-ratio: 5 / 4; background: var(--th-navy-tint); }
+/* 写真は正方形で表示（変更前に Safari などで見えていた縦幅。ブラウザによって 5:4 と正方形に分かれていたのを正方形にそろえた） */
+.th-person__photo { aspect-ratio: 1 / 1; background: var(--th-navy-tint); }
 .th-person__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; }
 .th-person__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
 .th-person h3 { font-size: 1.2rem; font-weight: 800; }
