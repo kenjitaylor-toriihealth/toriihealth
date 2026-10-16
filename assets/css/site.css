@@ -618,6 +618,7 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
    About page (our-story): hero banner, readable prose width, torii gateway figure
    -------------------------------------------------------------------------- */
 .th-prose--measure { max-width: 46em; }
+.th-card--center .th-card__link { align-self: center; }
 .th-facts--light { box-shadow: 0 18px 40px rgba(15, 37, 71, 0.10); border: 1px solid var(--th-border); }
 
 /* Hero: text on top, full-width clinic banner below (art-directed: square on phones) */
