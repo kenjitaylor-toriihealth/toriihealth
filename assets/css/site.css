@@ -447,7 +447,8 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
   border-radius: 14px;
   overflow: hidden;
 }
-.th-person__photo { aspect-ratio: 5 / 4; background: var(--th-navy-tint); }
+/* 写真は正方形で表示（変更前に Safari などで見えていた縦幅。ブラウザによって 5:4 と正方形に分かれていたのを正方形にそろえた） */
+.th-person__photo { aspect-ratio: 1 / 1; background: var(--th-navy-tint); }
 .th-person__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; }
 .th-person__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
 .th-person h3 { font-size: 1.2rem; font-weight: 800; }
@@ -464,9 +465,25 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
 .th-person__where svg { width: 15px; height: 15px; stroke: var(--th-text-muted); flex: none; }
 .th-person__bio { margin-top: 12px; color: var(--th-text-muted); font-size: 0.97rem; }
 .th-person .th-btn { margin-top: auto; align-self: flex-start; }
-.th-person__bio + .th-btn { margin-top: 20px; }
+/* 予約ボタンはカードの一番下にそろえる（紹介文の長さが違ってもボタンの位置が同じになる） */
+.th-person__bio { margin-bottom: 20px; }
+.th-person__bio + .th-btn { margin-top: auto; }
 .th-person .th-btn--outline { padding: 11px 22px; font-size: 0.88rem; }
 .th-person__note { margin-top: 20px; font-size: 0.88rem; color: var(--th-text-muted); }
+/* PC・タブレット：同じ行のカードで「写真／名前／肩書き／場所／紹介文／予約ボタン」の行を subgrid で共有し、
+   紹介文の長さが違っても予約ボタンが必ず同じ高さに並ぶようにする（ブラウザ差が出やすい flex の伸縮に頼らない）。
+   subgrid 非対応の古いブラウザは上の flex（ボタンを下端へ寄せる）で表示。 */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 640px) {
+    .th-person { display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0; }
+    .th-person__body { display: contents; }
+    .th-person__body > * { margin-left: 24px; margin-right: 24px; }
+    .th-person h3 { margin-top: 22px; }
+    .th-person__bio { margin-bottom: 0; }
+    .th-person .th-btn { margin-top: 20px; margin-bottom: 24px; align-self: start; justify-self: start; }
+    .th-person__note { margin-bottom: 24px; align-self: start; }
+  }
+}
 
 /* --------------------------------------------------------------------------
    FAQ (native <details> accordions — no JS)
@@ -602,17 +619,63 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
 .th-page-hero nav > .th-chips { margin-top: 28px; }
 
 /* Grouped service details (Services page) */
-.th-detail-grid { display: grid; gap: 20px; margin-top: 32px; }
-@media (min-width: 700px) { .th-detail-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1100px) { .th-detail-grid { grid-template-columns: repeat(3, 1fr); } }
-.th-detail { background: #fff; border: 1px solid var(--th-border); border-top: 4px solid var(--th-navy); border-radius: 12px; padding: 24px 24px 22px; }
-.th-detail h3 { font-size: 1.12rem; font-weight: 800; margin-bottom: 12px; }
-.th-detail ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-.th-detail li { position: relative; padding-left: 18px; color: var(--th-text); font-size: 0.97rem; line-height: 1.5; }
-.th-detail li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--th-red); }
-.th-detail__note { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--th-border); font-size: 0.86rem; color: var(--th-text-muted); }
-.th-detail--wide { grid-column: 1 / -1; }
-@media (min-width: 700px) { .th-detail--wide ul { grid-template-columns: repeat(2, 1fr); column-gap: 32px; } }
+/* Services: サービス一覧のアコーディオン（概要カード＋その場で開く詳細）
+   subgrid で「概要」の高さを同じ行のカードでそろえ、開いた詳細は概要の真下にくっつける。
+   閉じているカードは概要だけの高さで終わる（開いたカードの行が伸びても空白にならない）。 */
+.th-svc-grid { display: grid; gap: 20px; margin: 32px 0 0; padding: 0; list-style: none; }
+@media (min-width: 700px) { .th-svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .th-svc-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.th-svc { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; align-content: start; }
+.th-svc__summary {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--th-border);
+  border-radius: 12px;
+  padding: 26px 24px 18px;
+  box-shadow: 0 1px 2px rgba(15,37,71,0.04);
+  cursor: pointer;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+.th-svc__summary:hover { box-shadow: 0 10px 24px rgba(15,37,71,0.10); border-color: #cfd8e6; }
+.th-svc__summary .th-card__icon { width: 48px; height: 48px; margin-bottom: 16px; }
+.th-svc__summary h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 10px; }
+.th-svc__summary p { color: var(--th-text-muted); font-size: 0.95rem; line-height: 1.55; margin-bottom: 14px; }
+.th-svc__toggle {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-family: var(--th-font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--th-red);
+  cursor: pointer;
+}
+.th-svc__toggle svg { width: 16px; height: 16px; transition: transform 160ms ease; }
+.th-svc.is-open .th-svc__toggle svg { transform: rotate(180deg); }
+.th-svc.is-open .th-svc__summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: transparent; box-shadow: none; }
+.th-svc__panel {
+  background: #fff;
+  border: 1px solid var(--th-border);
+  border-top: 0;
+  border-radius: 0 0 12px 12px;
+  padding: 4px 24px 22px;
+  align-self: start;
+}
+.th-svc__panel::before { content: ""; display: block; border-top: 1px dashed var(--th-border); margin-bottom: 16px; }
+.th-svc__panel[hidden] { display: none; }
+.th-svc__panel ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.th-svc__panel li { position: relative; padding-left: 18px; color: var(--th-text); font-size: 0.95rem; line-height: 1.5; }
+.th-svc__panel li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--th-red); }
+.th-svc__note { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--th-border); font-size: 0.86rem; color: var(--th-text-muted); }
+.th-svc__text { font-size: 0.95rem; line-height: 1.55; color: var(--th-text); }
+@media (max-width: 559px) { .th-svc__summary { padding: 22px 20px 14px; } .th-svc__panel { padding: 4px 20px 20px; } }
 
 /* --------------------------------------------------------------------------
    About page (our-story): hero banner, readable prose width, torii gateway figure
@@ -635,6 +698,10 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
   box-shadow: 0 24px 50px rgba(5, 15, 35, 0.35);
 }
 .th-page-hero .th-figure figcaption { color: #c9d4e6; }
+/* タブレット（768〜959px）：PC と同じ2ショット写真を文字の下に横長で。頭が切れないよう上寄せで切り抜く */
+@media (min-width: 768px) and (max-width: 959px) {
+  .th-about-hero__photo img { aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 0; }
+}
 
 /* "Why Torii Health": 写真を右に置き、左端を紺へ透明にフェード（トップのヒーローと同じ見せ方） */
 .th-why-torii {
