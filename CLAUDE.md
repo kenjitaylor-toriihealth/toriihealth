@@ -200,3 +200,5 @@ python3 -m http.server 8080
 - 2026-10-16（11）：Team の予約ボタンが紹介文の長さによってずれる環境があったため、640px 以上では各カードを `grid-template-rows: subgrid`（6行：写真／名前／肩書き／場所／紹介文／ボタン）にし、同じ行のカードでボタンの行を共有してそろえるように変更（subgrid 非対応ブラウザは従来の flex で下端寄せ）。スマホのレイアウトは変更なし。
 - 2026-10-16（12）：Team の写真の縦幅を変更前の見え方に戻すため、`.th-person__photo` の比率を 5:4 → 1:1（正方形）に。以前は flex レイアウトの影響で Safari では正方形、Chrome では 5:4 と表示が分かれていた（subgrid 化で Safari も 5:4 になり縦幅が縮んだ）。予約ボタンの横一列そろえ（subgrid）はそのまま。
 - 2026-10-17：上司の指示で Services から /ebinamammogram・/sleepstudy へのリンクを削除（**これらは受診中の患者さん向けのページなので、公開ページからリンクしない**）。About ヒーローの医師2人の写真を、2人が中央に来るようにバナー（clinic-banner-2400）から切り出し直し（`Images/About/taylor-kaneshima-centered-{720,1090}.webp`／`-1090.jpg`、1090×786）。旧 taylor-kaneshima-* は削除。
+- 2026-10-17（2）：About ヒーローのスマホ用画像も、医師2人が中央に来るように作り直し（上部のロゴ・タグラインはそのまま、下の写真部分をバナーから中央寄せで切り出して差し替え。`Images/About/clinic-banner-mobile-centered-{720,1200}.webp`）。旧 clinic-banner-mobile-* は削除。タブレット（768〜959px）の横長バナーは変更なし。
+- 2026-10-18：About ヒーローのタブレット（768〜959px）も、横長バナー（ロゴ＋医師）をやめて PC と同じ2ショット写真（taylor-kaneshima-centered-*）を 16:9・上寄せで表示し、医師2人が中央に来るようにそろえた。clinic-banner-1280.webp は未使用のため削除（clinic-banner-1600.jpg は JSON-LD の画像、clinic-banner-2400.webp は切り出し元として残置）。

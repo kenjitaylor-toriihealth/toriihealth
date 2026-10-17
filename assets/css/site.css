@@ -698,6 +698,10 @@ body .formkit-slide-in .formkit-close:focus-visible { outline: 3px solid var(--t
   box-shadow: 0 24px 50px rgba(5, 15, 35, 0.35);
 }
 .th-page-hero .th-figure figcaption { color: #c9d4e6; }
+/* タブレット（768〜959px）：PC と同じ2ショット写真を文字の下に横長で。頭が切れないよう上寄せで切り抜く */
+@media (min-width: 768px) and (max-width: 959px) {
+  .th-about-hero__photo img { aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 0; }
+}
 
 /* "Why Torii Health": 写真を右に置き、左端を紺へ透明にフェード（トップのヒーローと同じ見せ方） */
 .th-why-torii {
