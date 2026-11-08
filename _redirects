@@ -10,3 +10,19 @@
 # 2026-10-12: 記事タイトル変更に合わせてスラッグを変更（cold-or-flu → viral-uri）
 /education/why-your-body-aches-with-a-cold-or-flu       /education/why-your-body-aches-with-a-viral-uri  301!
 /education/why-your-body-aches-with-a-cold-or-flu.html  /education/why-your-body-aches-with-a-viral-uri  301!
+
+# 2026-11-08: 中身と無関係・読みにくかった記事スラッグを内容がわかるURLに変更（旧URLは 301）
+/education/blog-post-title-one-fb2j5                                      /education/breast-cancer-screening-for-americans-in-japan  301!
+/education/blog-post-title-one-fb2j5.htm                                  /education/breast-cancer-screening-for-americans-in-japan  301!
+/education/welcome-to-2026-the-year-of-the-horse-pf5nl                    /education/7-questions-to-bring-to-your-annual-wellness-visit  301!
+/education/welcome-to-2026-the-year-of-the-horse-pf5nl.htm                /education/7-questions-to-bring-to-your-annual-wellness-visit  301!
+/education/welcome-to-2026-the-year-of-the-horse-pf5nl-ejffs              /education/understanding-ningen-dock-health-checks-in-japan  301!
+/education/welcome-to-2026-the-year-of-the-horse-pf5nl-ejffs.htm          /education/understanding-ningen-dock-health-checks-in-japan  301!
+/education/welcome-to-2026-the-year-of-the-horse-pf5nl-ejffs-6ysea        /education/colon-cancer-screening-for-americans-in-japan  301!
+/education/welcome-to-2026-the-year-of-the-horse-pf5nl-ejffs-6ysea.htm    /education/colon-cancer-screening-for-americans-in-japan  301!
+/education/zml3xkaeodzi8oxn1o92yr0udg09do                                 /education/glp-1s-in-japan-what-you-need-to-know-before-you-start  301!
+/education/zml3xkaeodzi8oxn1o92yr0udg09do.htm                             /education/glp-1s-in-japan-what-you-need-to-know-before-you-start  301!
+/education/glp1_supplements                                               /education/glp-1s-and-muscle-loss-supplements-worth-considering  301!
+/education/glp1_supplements.html                                          /education/glp-1s-and-muscle-loss-supplements-worth-considering  301!
+/education/GLP1_Supplements                                               /education/glp-1s-and-muscle-loss-supplements-worth-considering  301!
+/education/GLP1_Supplements.html                                          /education/glp-1s-and-muscle-loss-supplements-worth-considering  301!

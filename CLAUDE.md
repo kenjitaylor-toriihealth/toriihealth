@@ -28,8 +28,8 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 | 正規ドメイン | **`https://toriihealth.org`（apex）**。`www.toriihealth.org` は Netlify で apex に 301。canonical・og:url・内部リンクは apex で書く |
 | 外部サービス | IntakeQ（予約・患者ポータル）、Kit（メルマガ）、Google Analytics 4 `G-5Z8ZSDQ5JD`（全ページ、`assets/js/analytics.js`） |
 
-- Netlify 側のビルド設定・公開ディレクトリ・リダイレクトはリポジトリ内に無い（`netlify.toml` / `_redirects` 未コミット）。Netlify 管理画面で設定されている可能性あり。
-- `.htm` のページ（例 `primary-specialty-medicine.htm`）が `/primary-specialty-medicine` で表示される仕組みは未確認。**URL・ファイル名を変更するときは必ず本番で確認する。**
+- Netlify 側のビルド設定・公開ディレクトリ・リダイレクトはリポジトリ内に無い（`netlify.toml` は無し）。リダイレクトはリポジトリ直下の `_redirects` に書く（2026-10 以降コミット済み）。
+- `.htm` のページ（例 `primary-specialty-medicine.htm`）が `/primary-specialty-medicine` で表示される仕組みは Netlify の拡張子なしURL配信（2026-11-08 本番で確認：`.htm`/`.html` どちらも拡張子なしで 200。拡張子付きURLも 200 で返るが canonical は拡張子なし）。**URL・ファイル名を変更するときは必ず本番で確認する。**
 
 ## 3. ディレクトリ構成
 
@@ -39,7 +39,7 @@ AI（Claude）がこのリポジトリを編集・記事追加・改善すると
 ├── *.htm                                  # 同上（.htm 拡張子）
 ├── education.html                         # 記事一覧（新方式）
 ├── education/                             # 記事ページ
-│   ├── *.html  (新方式: four-simple-habits..., the-5-minute-skin-check..., GLP1_Supplements)
+│   ├── *.html  (新方式: four-simple-habits..., the-5-minute-skin-check..., glp-1s-and-muscle-loss-supplements-worth-considering ほか)
 │   └── *.htm   (旧方式: Squarespace 保存HTML)
 ├── partials/
 │   ├── header.html                        # ★共通ヘッダー
@@ -164,15 +164,15 @@ python3 -m http.server 8080
 未対応：
 
 1. （解消）医師名の表記：正しくは "Masahiro Yao"（2026-10-07 確認）。team・appointments・写真ファイル名（`Images/Team/masahiro-yao.webp`）を統一済み。デザインブリーフの "Masashiro" は誤記。
-2. 重複・意味のないURL：`service.html`／`vetconsultation.htm` は 2026-10-07 に `_redirects` で 301 済み。残り：`welcome-to-2026-the-year-of-the-horse-pf5nl-*`・`zml3xkaeodzi8oxn1o92yr0udg09do`・`blog-post-title-one-fb2j5`（中身と無関係なスラッグ）→ SEO的に不利。301リダイレクト付きで整理。
+2. （解消）重複・意味のないURL：`service.html`／`vetconsultation.htm` は 2026-10-07 に 301。中身と無関係だった記事スラッグ（`blog-post-title-one-fb2j5`・`welcome-to-2026-the-year-of-the-horse-pf5nl-*`・`zml3xkaeodzi8oxn1o92yr0udg09do`）と `GLP1_Supplements` は 2026-11-08 に内容がわかるURLへ変更し、旧URLは `_redirects` で 301。`-open-enrollment-…-`（先頭・末尾ハイフン）は 2026 年版への書き直し時に新URLにする。
 4. Squarespace CDN の画像が残存（契約終了で消えるリスク）。
 5. 旧ページは Squarespace の JS/CSS が大量で重い → 新方式への置き換えでパフォーマンス改善。
 6. ヘッダー/フッターは JS で後から挿入しているため、SEO・表示速度的には不利。将来的に Netlify のビルド時インクルード等で静的HTMLに埋め込むのが理想。
 7. /contact が採用ページで、患者向け問い合わせ導線が弱い。
 8. 旧ページのコンソールエラー（Best Practices で減点）：Squarespace のコンポーネントJSがローカル保存版と CDN 版で二重読み込み（`... is already defined`）、`/scripts/*.js`・`/api/census/RecordHit` の 404。新方式への置き換えで解消する。
-9. 新方式記事3本（skin-check / four-simple-habits / GLP1_Supplements）の `og:image` が存在しない `/images/education/*.jpg` を指している（SNSでシェアしたとき画像が出ない）。
+9. 新方式記事3本（skin-check / four-simple-habits / glp-1s-and-muscle-loss…（旧 GLP1_Supplements））の `og:image` が存在しない `/images/education/*.jpg` を指している（SNSでシェアしたとき画像が出ない）。
 10. （トップは解消済み）旧ページに残る Kit スライドインの保存済みHTMLが本文に重なる。旧ページを新方式にするときに外す。
-11. Netlify は URL を小文字に正規化する（例 `/education/GLP1_Supplements` → `/education/glp1_supplements`）。canonical は小文字の最終URLで書く。
+11. Netlify は URL を小文字に正規化する（例：旧 `/education/GLP1_Supplements` → `/education/glp1_supplements`）。canonical は小文字の最終URLで書く。新しいファイル名は最初から小文字・ハイフン区切りにする。
 
 ## 9. 変更履歴（主なもの）
 
@@ -204,3 +204,4 @@ python3 -m http.server 8080
 - 2026-10-18：About ヒーローのタブレット（768〜959px）も、横長バナー（ロゴ＋医師）をやめて PC と同じ2ショット写真（taylor-kaneshima-centered-*）を 16:9・上寄せで表示し、医師2人が中央に来るようにそろえた。clinic-banner-1280.webp は未使用のため削除（clinic-banner-1600.jpg は JSON-LD の画像、clinic-banner-2400.webp は切り出し元として残置）。
 - 2026-10-20：メルマガ（Beyond the Gate）の記事2本を新方式で追加。「Dad's Health Matters Too: How Fathers Shape Their Kids' Weight」（`/education/dads-health-matters-too-how-fathers-shape-their-kids-weight`、出典 Medscape・Reuters）と「PCOS Has a New Name: What PMOS Means for Your Care」（`/education/pcos-has-a-new-name-what-pmos-means-for-your-care`）。title タグは検索語優先（「Fathers and Childhood Obesity: New Research & WHO Guidelines」「PCOS Renamed PMOS: …」）、H1・OGP はメルマガの見出しのまま、JSON-LD は MedicalWebPage＋BreadcrumbList。本文にサイト内リンク（家族の食卓の記事・コレステロール記事・Services の #behavioral-health / #womens-health）を追加。OG 画像 `Images/Shared/og-fathers-child-weight.jpg`・`og-pcos-now-pmos.jpg`（既存の記事 OG と同じデザイン）。education 一覧にカード2枚、sitemap に2件（/education の lastmod も更新）、Viral URI 記事の Next → 父親の記事 → PMOS 記事 → Back to Education の順に前後リンクをつないだ。PMOS のメルマガ原稿には Sources 欄が無いため、本文の記載どおり「Teede H, et al. The Lancet. 2026.」のみ（巻・ページが分かれば追記）。
 - 2026-10-27：メルマガ（Beyond the Gate）の記事4本を新方式で追加。「Do Cranberry Supplements Really Prevent UTIs? What 50 Studies Show」（`/education/do-cranberry-supplements-really-prevent-utis`、出典 Cochrane 2023）、「Why Your Weight Loss Doesn't Have to Look Like Anyone Else's」（`/education/why-your-weight-loss-doesnt-have-to-look-like-anyone-elses`、Medscape の Dr. Gendreau のエッセイ。原稿の `MEDSCAPE_ARTICLE_URL` は実際の URL に置き換え）、「Birth Control or Hormone Therapy? Matching the Right Treatment to Your Perimenopause Goals」（`/education/birth-control-or-hormone-therapy-for-perimenopause`）、「The New Blood Pressure Guidelines: What They Mean for You」（`/education/the-new-blood-pressure-guidelines-what-they-mean-for-you`、出典 Curr Hypertens Rep 2026・2025 AHA/ACC ガイドライン）。title タグは検索語優先（「Do Cranberry Supplements Prevent UTIs? …」「Why Weight Loss Differs for Everyone, and How to Keep It Off」「Birth Control vs Hormone Therapy for Perimenopause Symptoms」「New 2025 Blood Pressure Guidelines: What Changed for You」）、H1・OGP はメルマガの見出しのまま、JSON-LD は MedicalWebPage＋BreadcrumbList。Sources 欄が無い原稿（体重・更年期）は本文で言及されている研究を PubMed で確認して記載。favicon は Squarespace CDN ではなくローカル（/favicon.ico ほか）。本文にサイト内リンク（PMOS・コレステロール・更年期の睡眠の記事、新しい4本どうし、Services の #womens-health / #hormones-weight、/appointments）。OG 画像 `Images/Shared/og-cranberry-uti-prevention.jpg`・`og-weight-loss-story.jpg`・`og-perimenopause-birth-control-hormone-therapy.jpg`・`og-blood-pressure-guidelines.jpg`（既存の記事 OG と同じデザイン）。education 一覧にカード4枚、sitemap に4件（/education の lastmod も更新）、前後リンクは PMOS → クランベリー → 体重 → 更年期 → 血圧 → Back to Education。
+- 2026-11-08：意味のない・読みにくい記事URL 6本を内容がわかるスラッグに変更（ファイル名も変更、旧URLは `_redirects` で 301!。拡張子付きの旧URLも転送）。`blog-post-title-one-fb2j5` → `breast-cancer-screening-for-americans-in-japan`、`welcome-to-2026-the-year-of-the-horse-pf5nl` → `7-questions-to-bring-to-your-annual-wellness-visit`、`…-pf5nl-ejffs` → `understanding-ningen-dock-health-checks-in-japan`、`…-pf5nl-ejffs-6ysea` → `colon-cancer-screening-for-americans-in-japan`、`zml3xkaeodzi8oxn1o92yr0udg09do` → `glp-1s-in-japan-what-you-need-to-know-before-you-start`（この記事は変更時点で Google 掲載中）、`GLP1_Supplements` → `glp-1s-and-muscle-loss-supplements-worth-considering`。各記事の canonical・og:url・twitter:url・itemprop url・JSON-LD の url、他記事の前後リンク・本文リンク、education 一覧のカード、sitemap（loc と lastmod）を新URLに更新。Squarespace の付属フォルダ（`*_files/`・`glp1_supplements/`）は名前を変えず、記事からの相対パスもそのまま（画像・CSS はこれまでどおり読み込まれる）。`welcome-to-2026-the-year-of-the-horse`（年頭あいさつ記事）は内容と一致しているため変更なし。
