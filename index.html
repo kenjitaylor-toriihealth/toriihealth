@@ -101,6 +101,29 @@
   <main id="main" class="th-page home">
 
     <!-- ================================================================
+      FEHB OPEN SEASON BANNER（2026-11-17 追加・トップページのみ）
+      2027 年版の記事への入口。Open Season は 2026-11-09〜12-14（FEHB は各自の
+      電子登録システムの所在地で 12/14 23:59 まで → 米国東部なら日本時間 12/15 13:59）。
+      下のスクリプトで 2026-12-15 14:00 JST（05:00 UTC）以降は自動で消える。
+      締切後にこのブロック（aside＋script）と home.css の .os-banner* を削除してよい。
+      ================================================================ -->
+    <aside class="os-banner" id="open-season-banner" aria-label="FEHB Open Season">
+      <div class="th-container os-banner__inner">
+        <span class="os-banner__tag">Open Season</span>
+        <p class="os-banner__text"><strong>FEHB Open Season ends Monday, December&nbsp;14.</strong> <span>FSBP or FEP Blue? Three things to consider before you choose your 2027 plan.</span></p>
+        <a class="os-banner__link" href="https://toriihealth.org/education/2027-fehb-open-season-choosing-the-right-health-plan-in-japan">Read our guide<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </aside>
+    <script>
+      (function () {
+        if (Date.now() >= Date.UTC(2026, 11, 15, 5, 0)) {
+          var b = document.getElementById('open-season-banner');
+          if (b) b.parentNode.removeChild(b);
+        }
+      })();
+    </script>
+
+    <!-- ================================================================
       HERO
       背景は写真（富士山・湖の鳥居・景色を眺める家族連れの後ろ姿）。2026-10-16 のフィードバック
       「イラストが不自然／もっと写実的に／人を入れて」を受けてイラスト（インラインSVG）から変更。
