@@ -127,15 +127,18 @@
 
     <!-- ================================================================
       年末年始休診のお知らせ（2026-11-17 追加。CSS は home.css の .os-banner--closure）
+      文言はメルマガ（11/17 配信）の「Reminder: Winter Break」と同じ。
       休診：2026-12-19（土）〜 2027-01-03（日）、1/4（月）から通常どおり。
       2027-01-04 00:00 JST（2027-01-03 15:00 UTC）以降は下のスクリプトで自動的に消える。
       その後 HTML と CSS を削除してよい。
       ================================================================ -->
-    <aside class="os-banner os-banner--closure" id="holiday-closure-notice" aria-label="Holiday closure">
+    <aside class="os-banner os-banner--closure" id="holiday-closure-notice" aria-label="Reminder: Winter Break">
       <div class="th-container os-banner__inner">
-        <span class="os-banner__tag">Holiday Hours</span>
-        <p class="os-banner__text"><strong>Closed December&nbsp;19 &ndash; January&nbsp;3.</strong> <span>We reopen Monday, January&nbsp;4.</span> <span class="os-banner__more">Need refills, referrals, or labs? Please contact us early.</span></p>
-        <a class="os-banner__link" href="https://toriihealth.org/appointments">Book a visit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <span class="os-banner__tag">Reminder: Winter Break</span>
+        <div class="os-banner__text">
+          <p>Our clinic will be closed from <strong>Saturday, December&nbsp;19, 2026 through Sunday, January&nbsp;3, 2027</strong>. Normal hours resume <strong>Monday, January&nbsp;4</strong>.</p>
+          <p>Need refills, referrals, labs, or a visit over the holidays? Please contact us early. And if you switch plans this Open Season, let us know so we&rsquo;re ready for your new coverage in January: <a href="mailto:info@toriihealth.org">info@toriihealth.org</a></p>
+        </div>
       </div>
     </aside>
     <script>

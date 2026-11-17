@@ -322,7 +322,8 @@
    2027-01-04 以降に index.html の #holiday-closure-notice と一緒に削除してよい。
    -------------------------------------------------------------------------- */
 .os-banner--closure { background: #fff; }
-.os-banner--closure .os-banner__tag { background: var(--th-navy); }
-.os-banner--closure .os-banner__link { color: var(--th-navy); }
-/* スマホは2つの帯でヒーローが下がりすぎないよう、補足の一文を省く */
-@media (max-width: 559px) { .os-banner--closure .os-banner__more { display: none; } }
+.os-banner--closure .os-banner__inner { align-items: flex-start; }
+.os-banner--closure .os-banner__tag { background: var(--th-navy); margin-top: 2px; }
+.os-banner--closure .os-banner__text p { margin: 0; }
+.os-banner--closure .os-banner__text p + p { margin-top: 4px; }
+.os-banner--closure .os-banner__text a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
