@@ -106,6 +106,8 @@
       電子登録システムの所在地で 12/14 23:59 まで → 米国東部なら日本時間 12/15 13:59）。
       下のスクリプトで 2026-12-15 14:00 JST（05:00 UTC）以降は自動で消える。
       締切後にこのブロック（aside＋script）と home.css の .os-banner* を削除してよい。
+      ※ 下の年末年始休診のお知らせ（#holiday-closure-notice）も .os-banner* の CSS を使うので、
+        CSS の削除は 2027-01-04 以降に休診のお知らせと一緒に行う。
       ================================================================ -->
     <aside class="os-banner" id="open-season-banner" aria-label="FEHB Open Season">
       <div class="th-container os-banner__inner">
@@ -119,6 +121,31 @@
         if (Date.now() >= Date.UTC(2026, 11, 15, 5, 0)) {
           var b = document.getElementById('open-season-banner');
           if (b) b.parentNode.removeChild(b);
+        }
+      })();
+    </script>
+
+    <!-- ================================================================
+      年末年始休診のお知らせ（2026-11-17 追加。CSS は home.css の .os-banner--closure）
+      文言はメルマガ（11/17 配信）の「Reminder: Winter Break」と同じ。
+      休診：2026-12-19（土）〜 2027-01-03（日）、1/4（月）から通常どおり。
+      2027-01-04 00:00 JST（2027-01-03 15:00 UTC）以降は下のスクリプトで自動的に消える。
+      その後 HTML と CSS を削除してよい。
+      ================================================================ -->
+    <aside class="os-banner os-banner--closure" id="holiday-closure-notice" aria-label="Reminder: Winter Break">
+      <div class="th-container os-banner__inner">
+        <span class="os-banner__tag">Reminder: Winter Break</span>
+        <div class="os-banner__text">
+          <p>Our clinic will be closed from <strong>Saturday, December&nbsp;19, 2026 through Sunday, January&nbsp;3, 2027</strong>. Normal hours resume <strong>Monday, January&nbsp;4</strong>.</p>
+          <p>Need refills, referrals, labs, or a visit over the holidays? Please contact us early. And if you switch plans this Open Season, let us know so we&rsquo;re ready for your new coverage in January: <a href="mailto:info@toriihealth.org">info@toriihealth.org</a></p>
+        </div>
+      </div>
+    </aside>
+    <script>
+      (function () {
+        if (Date.now() >= Date.UTC(2027, 0, 3, 15, 0)) {
+          var n = document.getElementById('holiday-closure-notice');
+          if (n) n.parentNode.removeChild(n);
         }
       })();
     </script>
