@@ -257,7 +257,7 @@
    FEHB Open Season banner（2026-11-17 追加。12/14 締切後に index.html の
    #open-season-banner と一緒に削除してよい）
    ※ 年末年始休診のお知らせ（#holiday-closure-notice）も .os-banner* を使うため、
-     この CSS は 2027-01-04 以降に .os-banner--closure と一緒に削除する。
+     この CSS は 2027-01-05 以降に .os-banner--closure と一緒に削除する。
    -------------------------------------------------------------------------- */
 .os-banner {
   background: var(--th-navy-tint);
@@ -319,7 +319,7 @@
 /* --------------------------------------------------------------------------
    年末年始休診のお知らせ（2026-11-17 追加）。.os-banner の部品をそのまま使い、
    Open Season の帯と並んでも区別できるよう白地＋紺のタグにする。
-   2027-01-04 以降に index.html の #holiday-closure-notice と一緒に削除してよい。
+   2027-01-05 以降に index.html の #holiday-closure-notice と一緒に削除してよい。
    -------------------------------------------------------------------------- */
 .os-banner--closure { background: #fff; }
 .os-banner--closure .os-banner__inner { align-items: flex-start; }
