@@ -481,8 +481,8 @@
 
    /* ==========================================================================
       NOTICE BAR（お知らせ帯・全ページ共通）
-      partials/header.html の #holiday-closure-notice（年末年始休診のお知らせ）用。
-      2026-11-20 追加。2027-01-05 以降に HTML と一緒に削除してよい。
+      partials/header.html の #open-season-banner（〜12/15）と #holiday-closure-notice（〜1/5）用。
+      2026-11-20 追加。2本とも期限を過ぎたら HTML と一緒に削除してよい。
       旧ページ（Squarespace）の CSS に影響されないよう、文字・余白・色を明示している。
       ========================================================================== */
    .th-notice {
@@ -566,6 +566,36 @@
      stroke-width: 2.4;
      stroke-linecap: round;
    }
+   /* 薄い紺の背景＋赤いタグ（Open Season）。1行に収まる帯は上下中央にそろえる */
+   .th-notice--tint { background: var(--th-navy-tint); }
+   .th-notice--tint .th-notice__tag { background: var(--th-red); }
+   .th-notice--compact .th-notice__inner { align-items: center; }
+   .th-notice--compact .th-notice__tag,
+   .th-notice--compact .th-notice__close { margin-top: 0; }
+   .th-notice .th-notice__link {
+     flex: 0 0 auto;
+     display: inline-flex;
+     align-items: center;
+     gap: 6px;
+     font-family: var(--th-font-display);
+     font-weight: 800;
+     font-size: 0.95rem;
+     line-height: 1.5;
+     color: var(--th-red);
+     text-decoration: none;
+     white-space: nowrap;
+   }
+   .th-notice .th-notice__link:hover,
+   .th-notice .th-notice__link:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+   .th-notice__link svg {
+     width: 18px;
+     height: 18px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 2.2;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
    @media (max-width: 959px) {
      .th-notice .th-container { padding-left: 20px; padding-right: 20px; }
    }
@@ -573,5 +603,6 @@
      .th-notice { font-size: 0.92rem; }
      .th-notice__inner { position: relative; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
      .th-notice__text { flex-basis: 100%; }
+     .th-notice--compact .th-notice__inner { align-items: flex-start; }
      .th-notice__close { position: absolute; top: 8px; right: 12px; margin: 0; }
    }
