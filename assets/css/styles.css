@@ -478,3 +478,100 @@
      color: #9fb2d1;
    }
    .th-footer__bottom a { color: #9fb2d1; text-decoration: underline; margin-left: 14px; }
+
+   /* ==========================================================================
+      NOTICE BAR（お知らせ帯・全ページ共通）
+      partials/header.html の #holiday-closure-notice（年末年始休診のお知らせ）用。
+      2026-11-20 追加。2027-01-05 以降に HTML と一緒に削除してよい。
+      旧ページ（Squarespace）の CSS に影響されないよう、文字・余白・色を明示している。
+      ========================================================================== */
+   .th-notice {
+     background: var(--th-white);
+     color: var(--th-navy);
+     border-bottom: 1px solid var(--th-border);
+     font-family: var(--th-font-body);
+     font-size: 0.98rem;
+     line-height: 1.5;
+     text-align: left;
+   }
+   .th-notice[hidden] { display: none; }
+   .th-notice *, .th-notice *::before, .th-notice *::after { box-sizing: border-box; }
+   .th-notice .th-container {
+     max-width: calc(1280px + 64px);
+     padding-left: 32px;
+     padding-right: 32px;
+   }
+   .th-notice__inner {
+     display: flex;
+     align-items: flex-start;
+     gap: 10px 20px;
+     padding-top: 14px;
+     padding-bottom: 14px;
+   }
+   .th-notice__tag {
+     flex: 0 0 auto;
+     margin-top: 2px;
+     font-family: var(--th-font-display);
+     font-weight: 800;
+     font-size: 0.75rem;
+     letter-spacing: 0.08em;
+     text-transform: uppercase;
+     line-height: 1;
+     color: #fff;
+     background: var(--th-navy);
+     border-radius: var(--th-radius-pill);
+     padding: 6px 12px;
+     white-space: nowrap;
+   }
+   .th-notice__text { flex: 1 1 auto; min-width: 0; }
+   .th-notice .th-notice__text p {
+     margin: 0;
+     padding: 0;
+     font-family: var(--th-font-body);
+     font-size: inherit;
+     line-height: inherit;
+     letter-spacing: normal;
+     color: inherit;
+   }
+   .th-notice .th-notice__text p + p { margin-top: 4px; }
+   .th-notice .th-notice__text strong { font-family: var(--th-font-display); font-weight: 800; }
+   .th-notice .th-notice__text a {
+     color: inherit;
+     font-weight: 700;
+     text-decoration: underline;
+     text-underline-offset: 2px;
+   }
+   .th-notice__close {
+     flex: 0 0 auto;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     width: 32px;
+     height: 32px;
+     margin: -4px -6px 0 0;
+     padding: 0;
+     border: 0;
+     border-radius: 50%;
+     background: transparent;
+     color: var(--th-navy);
+     cursor: pointer;
+   }
+   .th-notice__close:hover { background: var(--th-navy-tint); }
+   .th-notice__close:focus-visible { outline: 3px solid var(--th-red); outline-offset: 2px; }
+   .th-notice__close svg {
+     width: 18px;
+     height: 18px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 2.4;
+     stroke-linecap: round;
+   }
+   @media (max-width: 959px) {
+     .th-notice .th-container { padding-left: 20px; padding-right: 20px; }
+   }
+   @media (max-width: 559px) {
+     .th-notice { font-size: 0.92rem; }
+     .th-notice__inner { position: relative; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
+     .th-notice__text { flex-basis: 100%; }
+     .th-notice__close { position: absolute; top: 8px; right: 12px; margin: 0; }
+   }
