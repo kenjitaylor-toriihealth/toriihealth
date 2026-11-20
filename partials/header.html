@@ -75,13 +75,32 @@
   </div>
 </header>
 
-<!-- 年末年始休診のお知らせ（2026-11-17 にトップのみで追加 → 2026-11-20 上司の依頼で全ページ表示に変更）
-     文言はメルマガ（11/17 配信）の「Reminder: Winter Break」と同じ（休診は 1/4 まで・1/5 再開に修正済み）。
-     CSS は styles.css の .th-notice*。最初は hidden で、下のスクリプトが
-     「2027-01-05 00:00 JST（2027-01-04 15:00 UTC）より前」かつ「× で閉じていない」ときだけ表示する。
-     × で閉じた状態はブラウザの localStorage に保存し、1/5 まで再表示しない。
-     2027-01-05 以降にこのブロック（aside＋script）と styles.css の .th-notice* を削除してよい。 -->
-<aside class="th-notice" id="holiday-closure-notice" aria-label="Reminder: Winter Break" hidden>
+<!-- ======================================================================
+     お知らせ帯（全ページ共通、ヘッダーの直下）。CSS は styles.css の .th-notice*。
+     2026-11-20 上司の依頼で、トップだけにあった2本（Open Season・年末年始休診）を全ページに移した。
+     各帯は最初 hidden で、下のスクリプトが「data-th-notice-until より前」かつ「× で閉じていない」
+     ときだけ表示する。× で閉じた状態はブラウザの localStorage（キー＝data-th-notice の値）に保存。
+     期限を過ぎたら、その帯の <aside> を削除してよい（2本とも消えたら script と .th-notice* も削除可）。
+     ====================================================================== -->
+<!-- ① FEHB Open Season（2027 年版の記事 Part 1 への入口）。FEHB の締切は「各自の電子登録システムの
+     所在地で 12/14 23:59」→ 米国東部に合わせて 2026-12-15 14:00 JST（05:00 UTC）に自動で消える。 -->
+<aside class="th-notice th-notice--tint th-notice--compact" id="open-season-banner" aria-label="FEHB Open Season"
+       data-th-notice="th-notice-open-season-2026" data-th-notice-until="2026-12-15T05:00:00Z" hidden>
+  <div class="th-container th-notice__inner">
+    <span class="th-notice__tag">Open Season</span>
+    <div class="th-notice__text">
+      <p><strong>FEHB Open Season ends Monday, December&nbsp;14.</strong> FSBP or FEP Blue? Three things to consider before you choose your 2027 plan.</p>
+    </div>
+    <a class="th-notice__link" href="https://toriihealth.org/education/2027-fehb-open-season-choosing-the-right-health-plan-in-japan">Read our guide<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <button type="button" class="th-notice__close" aria-label="Close this notice" data-th-notice-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+</aside>
+<!-- ② 年末年始休診（文言はメルマガ 11/17 配信の「Reminder: Winter Break」と同じ。休診 12/19〜1/4、1/5 再開）。
+     2027-01-05 00:00 JST（2027-01-04 15:00 UTC）に自動で消える。 -->
+<aside class="th-notice" id="holiday-closure-notice" aria-label="Reminder: Winter Break"
+       data-th-notice="th-notice-winter-break-2026" data-th-notice-until="2027-01-04T15:00:00Z" hidden>
   <div class="th-container th-notice__inner">
     <span class="th-notice__tag">Reminder: Winter Break</span>
     <div class="th-notice__text">
@@ -94,25 +113,27 @@
   </div>
 </aside>
 <script>
-  // 休診のお知らせ：期限内かつ未クローズのときだけ表示（fetch 挿入後に実行される）
-  (function initThNotice() {
-    var n = document.getElementById('holiday-closure-notice');
-    if (!n) return;
-    var KEY = 'th-notice-winter-break-2026';
-    var dismissed = false;
-    try { dismissed = window.localStorage.getItem(KEY) === '1'; } catch (e) {}
-    if (dismissed || Date.now() >= Date.UTC(2027, 0, 4, 15, 0)) {
-      n.parentNode.removeChild(n);
-      return;
-    }
-    n.hidden = false;
-    var btn = n.querySelector('[data-th-notice-close]');
-    if (btn) {
-      btn.addEventListener('click', function () {
+  // お知らせ帯：期限内かつ未クローズの帯だけ表示（fetch 挿入後に実行される）
+  (function initThNotices() {
+    var notices = document.querySelectorAll('[data-th-notice]');
+    Array.prototype.forEach.call(notices, function (n) {
+      var key = n.getAttribute('data-th-notice');
+      var until = Date.parse(n.getAttribute('data-th-notice-until'));
+      var dismissed = false;
+      try { dismissed = window.localStorage.getItem(key) === '1'; } catch (e) {}
+      if (dismissed || !(Date.now() < until)) {
         n.parentNode.removeChild(n);
-        try { window.localStorage.setItem(KEY, '1'); } catch (e) {}
-      });
-    }
+        return;
+      }
+      n.hidden = false;
+      var btn = n.querySelector('[data-th-notice-close]');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          n.parentNode.removeChild(n);
+          try { window.localStorage.setItem(key, '1'); } catch (e) {}
+        });
+      }
+    });
   })();
 </script>
 
