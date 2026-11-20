@@ -75,6 +75,47 @@
   </div>
 </header>
 
+<!-- 年末年始休診のお知らせ（2026-11-17 にトップのみで追加 → 2026-11-20 上司の依頼で全ページ表示に変更）
+     文言はメルマガ（11/17 配信）の「Reminder: Winter Break」と同じ（休診は 1/4 まで・1/5 再開に修正済み）。
+     CSS は styles.css の .th-notice*。最初は hidden で、下のスクリプトが
+     「2027-01-05 00:00 JST（2027-01-04 15:00 UTC）より前」かつ「× で閉じていない」ときだけ表示する。
+     × で閉じた状態はブラウザの localStorage に保存し、1/5 まで再表示しない。
+     2027-01-05 以降にこのブロック（aside＋script）と styles.css の .th-notice* を削除してよい。 -->
+<aside class="th-notice" id="holiday-closure-notice" aria-label="Reminder: Winter Break" hidden>
+  <div class="th-container th-notice__inner">
+    <span class="th-notice__tag">Reminder: Winter Break</span>
+    <div class="th-notice__text">
+      <p>Our clinic will be closed from <strong>Saturday, December&nbsp;19, 2026 through Monday, January&nbsp;4, 2027</strong>. Normal hours resume <strong>Tuesday,&nbsp;January&nbsp;5</strong>.</p>
+      <p>Need refills, referrals, labs, or a visit over the holidays? Please contact us early. And if you switch plans this Open Season, let us know so we&rsquo;re ready for your new coverage in January: <a href="mailto:info@toriihealth.org">info@toriihealth.org</a></p>
+    </div>
+    <button type="button" class="th-notice__close" aria-label="Close this notice" data-th-notice-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+</aside>
+<script>
+  // 休診のお知らせ：期限内かつ未クローズのときだけ表示（fetch 挿入後に実行される）
+  (function initThNotice() {
+    var n = document.getElementById('holiday-closure-notice');
+    if (!n) return;
+    var KEY = 'th-notice-winter-break-2026';
+    var dismissed = false;
+    try { dismissed = window.localStorage.getItem(KEY) === '1'; } catch (e) {}
+    if (dismissed || Date.now() >= Date.UTC(2027, 0, 4, 15, 0)) {
+      n.parentNode.removeChild(n);
+      return;
+    }
+    n.hidden = false;
+    var btn = n.querySelector('[data-th-notice-close]');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        n.parentNode.removeChild(n);
+        try { window.localStorage.setItem(KEY, '1'); } catch (e) {}
+      });
+    }
+  })();
+</script>
+
 <script>
   // ヘッダーの開閉インタラクション(fetch挿入後に実行される想定)
   (function initToriiHeader() {
